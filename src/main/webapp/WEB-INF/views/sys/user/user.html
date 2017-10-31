@@ -1,0 +1,188 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow:auto;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<!--人员管理模块-->
+			<div role="tabpanel" class="tab-pane active">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+							查询条件
+					</div>
+					<div class="panel-body form-group" style="margin:0 auto">
+						<label class="col-sm-1 control-label">姓名：</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="searchName" id="search_name"/>
+						</div>
+						<label class="col-sm-1 control-label">手机号：</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="searchTel" id="search_tel"/>
+						</div>
+						   <div class="col-md-3 col-md-offset-3" >
+							   <button class="btn btn-primary" id="search_btn">查询</button>
+							   <button class="btn btn-primary" id="btn_add">新增</button>
+						   </div>
+					 </div>
+				</div>
+				<div  class="panel-body">
+					<table id="dataTable"></table>
+				</div>
+			</div>
+			<!--弹出添加用户Modal窗口-->
+			<div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">添加用户</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal" id="userAddFrom">
+									<div class="form-group ">
+										<label for="account" class="col-xs-3 control-label">账户：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="account"  id="account" placeholder="">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">用户名：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="name"  id="name" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sLink" class="col-xs-3 control-label">密码：：</label>
+										<div class="col-xs-8 ">
+											<input type="password" class="form-control input-sm duiqi"  id="password" name="password" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sOrd" class="col-xs-3 control-label">电子邮箱：</label>
+										<div class="col-xs-8">
+											<input type="email" class="form-control input-sm duiqi" id="email" name="email" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-3 control-label">电话：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="phone" name="phone" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-3 control-label">部门：</label>
+										<div class="col-xs-8">
+											<select class=" form-control select-duiqi" id="deptId" name="deptId">
+												@for(dept in session.deptList){
+													<option value="${dept.id}">${dept.fullname}</option>
+											   @}
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-3 control-label"> 性别：</label>
+										<div class="col-xs-8">
+											<select class=" form-control select-duiqi" id="sex" name="sex">
+												<option value="1">男</option>
+												<option value="2">女</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="situation" class="col-xs-3 control-label">状态：</label>
+											<div class="col-xs-8">
+												<select class=" form-control select-duiqi" id="status" name="status">
+												
+													<option value="1">启用 </option>
+													<option value="2">冻结</option>
+												</select>
+											</div>
+									</div>
+									<div class="form-group">
+										<label for="situation" class="col-xs-3 control-label">权限：</label>
+
+										<div class="col-xs-8">
+											@for(role in session.rolesList){
+												<label class="control-label" for="anniu">
+												<input type="checkbox" name="roleList" id="roleList_${roleLP.index}" value="${role.id}">${role.name}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											@}
+
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+							<button type="button"  class="btn btn-xs btn-white" id="resetBtn">重置</button>
+							<button type="button" class="btn btn-xs btn-green" id="validateBtn">保 存</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!--弹出删除用户警告窗口-->
+			<div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="2gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								确定要删除该用户？删除后不可恢复！
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="delId">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn  btn-xs btn-danger" onclick="delUserSubmit()">确 定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			
+			<!--弹出添加用户Modal窗口-->
+		<div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="gridSystemModalLabel">修改用户</h4>
+		            </div>
+		            <div class="modal-body">
+		                <div class="container-fluid">
+		                    <form class="form-horizontal" id="editForm">
+		                    </form>
+		                </div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+		                <button type="button" class="btn btn-xs btn-green" id="editBtn">保 存</button>
+		            </div>
+		        </div>
+        <!-- /.modal-content -->
+	    </div>
+	    <!-- /.modal-dialog -->
+		</div>
+			<script>
+			    $("#reviseUser").on("hidden.bs.modal",function () {
+			        $("#reviseUser").remove();
+			    });
+			    $(function () {
+			        $("#editBtn").click(function(){
+			            alert(1);
+			        })
+			    })
+			</script>
+		</div>
+</div>
+<script src="${ctxPath}/static/modular/system/user/user.js"></script>
+@}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.DictMapper">
+
+	
+	<select id="getDictByNameOrId"  resultType="com.aml.sys.entity.Dict">
+		select * from dict
+		where 1=1 
+			<if test="dmTp != null and dmTp != ''">
+					and DM_TP like CONCAT('%',#{dmTp},'%')
+			</if>
+			<if test="dmCd != null and dmCd != ''">
+				and DM_CD = #{dmCd}
+			</if>
+			<if test="dmNm != null and dmNm != ''">
+				and DM_NM like CONCAT('%',#{dmNm},'%')
+			</if>
+	</select>
+	
+	<select id="findDictByDmTp" resultType="com.aml.sys.entity.Dict">
+		select * from dict
+		where 1=1 
+			<if test="dmTp != null and dmTp != ''">
+				and dm_tp = #{dmTp}
+			</if>
+	</select>
+	<!--根据Id查询字典信息-->
+	<select id="getDictById"  resultType="com.aml.sys.entity.Dict"  >
+		select 
+		id,DM_TP,DM_CD,DM_NM,DM_SP,dm_ds
+		from dict
+		where  
+		id= #{id}		 
+	</select>
+</mapper>

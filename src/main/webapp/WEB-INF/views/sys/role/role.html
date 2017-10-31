@@ -1,0 +1,161 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow:auto;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<!--人员管理模块-->
+			<div role="tabpanel" class="tab-pane active">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>角色管理 </span><button class="btn btn-primary" style="margin-left:300px;" id="btn_add">新增</button>
+					</div>
+				</div>
+				<div  class="panel-body">
+					<table id="dataTable"></table>
+				</div>
+			</div>
+			<!--弹出添加角色Modal窗口-->
+			<div class="modal fade" id="addRole" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">添加角色</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal" id="roleAddFrom">
+									<div class="form-group ">
+										<label for="account" class="col-xs-3 control-label">角色名：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="name"  id="name" placeholder="">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">角色描述：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="tips"  id="tips" placeholder="">
+										</div>
+									</div>
+										<div class="form-group ">
+										<label for="sName" class="col-xs-3 control-label">角色备注：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="version"  id="version" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="situation" class="col-xs-3 control-label">菜单权限：</label>
+										<div class="col-xs-8">
+											<ul class="easyui-tree" id="roleTree">
+											</ul>
+										</div>
+									</div>
+								<input type="hidden" value="" id="menuListValue" name="menuListValue"/>
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+							<button type="button"  class="btn btn-xs btn-white" id="resetBtn">重置</button>
+							<button type="button" class="btn btn-xs btn-green" id="validateBtn">保 存</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+			<!--弹出删除角色警告窗口-->
+			<div class="modal fade" id="deleteRole" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="2gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								确定要删除该角色？删除后不可恢复！
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="delId">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn  btn-xs btn-danger" onclick="delRoleSubmit()">确 定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			
+			<!--弹出修改用户Modal窗口-->
+		<div class="modal fade" id="reviseRole" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="gridSystemModalLabel">修改角色</h4>
+		            </div>
+		            <div class="modal-body">
+		                <div class="container-fluid">
+		                    <form class="form-horizontal" id="editForm">
+		                    <input type="hidden" name="id"   id="roleId" value="${role.id!}"> </input>
+								<div class="form-group ">
+									<label for="account" class="col-xs-3 control-label">角色名：</label>
+									
+									<div class="col-xs-8 ">
+										<input  class="form-control input-sm duiqi" name="name" id="roleName"   placeholder=""  value="role.name">
+									</div>
+								</div>
+								<div class="form-group ">
+									
+									<label class="col-xs-3 control-label">描述：</label>
+									<div class="col-xs-8 ">
+										<input  class="form-control input-sm duiqi" name="tips" id="roleTips" placeholder="" value="role.tips">
+									</div>
+								</div>
+								<div class="form-group ">
+
+									<label class="col-xs-3 control-label">备注：</label>
+									<div class="col-xs-8 ">
+										<input  class="form-control input-sm duiqi" name="version" id="roleVersion" placeholder="" value="role.version">
+									</div>
+								</div>
+								<div class="form-group" id="menuAuth">
+									<label for="situation" class="col-xs-3 control-label">菜单权限：</label>
+									<div class="col-xs-8">
+										<ul class="easyui-tree" id="roleTreeOfEdit">
+										</ul>
+									</div>
+								</div>
+								
+								< <input type="hidden" value="" id="menuListValue" name="menuListValue"/> -->
+		                    </form>
+		                </div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+		                <button type="button" class="btn btn-xs btn-green" id="editBtn">保 存</button>
+		            </div>
+		        </div>
+        <!-- /.modal-content -->
+	    </div>
+	    <!-- /.modal-dialog -->
+		</div>
+			<script>
+			    $("#reviseRole").on("hidden.bs.modal",function () {
+			        $("#reviseRole").hide();
+			    });
+			    $(function () {
+			        $("#editBtn").click(function(){
+			            alert(1);
+			        })
+			    })
+			</script>
+		</div>
+</div>
+<script src="${ctxPath}/static/modular/system/role/role.js"></script>
+@}

@@ -1,0 +1,80 @@
+<div class="form-group ">
+    <label class="col-xs-3 control-label">账户：</label>
+    <div class="col-xs-8 ">
+        <input  class="form-control input-sm duiqi" name="account" value="${user.account!}" placeholder="" disabled>
+    </div>
+</div>
+
+<div class="form-group ">
+<input type="hidden" name="id" value="${user.id!}"> </input>
+    <label class="col-xs-3 control-label">用户名：</label>
+    <div class="col-xs-8 ">
+        <input  class="form-control input-sm duiqi" name="name" value="${user.name!}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label">电子邮箱：</label>
+    <div class="col-xs-8">
+        <input type="email" class="form-control input-sm duiqi" value="${user.email!}" name="email" placeholder="">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label">电话：</label>
+    <div class="col-xs-8">
+        <input  class="form-control input-sm duiqi" name="phone" value="${user.phone!}" placeholder="">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label">部门：</label>
+    <div class="col-xs-8">
+        <select class=" form-control select-duiqi" name="deptId">
+            @for(dept in session.deptList){
+                @if(dept.id == user.deptid){
+                    <option value="${dept.id}" selected>${dept.fullname}</option>
+                @}else{
+                    <option value="${dept.id}" >${dept.fullname}</option>
+                @}
+
+            @}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label"> 性别：</label>
+    <div class="col-xs-8">
+        <select class=" form-control select-duiqi" name="sex">
+            @if(user.sex==1){
+            <option value="1" selected>男 </option>
+            <option value="2" >女 </option>
+            @}else{
+            <option value="1" >男 </option>
+            <option value="2" selected>女 </option>
+            @}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label">状态：</label>
+    <div class="col-xs-8">
+	    <select class=" form-control select-duiqi" id="status" name="status">
+	        <option value="1">启用 </option>
+	        <option value="2">冻结</option>
+	    </select>
+	</div>
+</div>
+<div class="form-group">
+    <label class="col-xs-3 control-label">权限：</label>
+
+    <div class="col-xs-8">
+        @for(role in roles){
+            @if(role.checked == 'true'){
+             <label class="control-label">
+                <input type="checkbox" checked name="roleList" value="${role.id}">${role.name}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @}else{
+             <label class="control-label">
+                <input type="checkbox" name="roleList" value="${role.id}">${role.name}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @}
+
+        @}
+    </div>
+</div>
