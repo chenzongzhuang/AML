@@ -1,0 +1,43 @@
+@charset "utf-8";
+*{margin: 0;padding: 0;list-style: none;-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;}
+body{ font-size:12px; height:100%;width: 100%;}
+.content-h{width: 1230px; margin: 0px auto; }
+.content-frame-h{border: 1px solid #e3e3e3;  float: left; margin: 5px 5px;}
+.title-h{height: 50px; background: #40c0ff; line-height: 50px; padding: 0px 15px; color: #ffffff;}
+.title-white{height: 50px; background: #FFFFFF; line-height: 50px; padding: 0px 15px; color: #333333;border-bottom:1px solid #e3e3e3;}
+.title-h2{height: 50px; background: #FFFFFF; font-size:14px;}
+.title-h img{vertical-align: middle;}
+.text-span{margin-left: 5px;}
+.width-per50-left{float: left; width: 50%;border-bottom:1px solid #e3e3e3;border-right:1px solid #e3e3e3;}
+.width-per50-right{float: left; width: 50%;border-bottom:1px solid #e3e3e3;}
+.row{width: 100%; position: relative;float: left;}
+.detail-name-h{color: #2dbcfa; margin-top: 25px; text-align: center;}
+.detail-data-h{color: #6e6d6f; margin-top: 15px; text-align: center; padding:0px 10px;}
+.text-line{border-right: 1px solid #a9748e; padding-right: 5px;}
+.detail-data-h span:last-child{border: 0px !important;}
+.h80{height: 80px;}
+.mt20{margin-top: 20px;}
+.border-bottom-none{border-bottom: 0px !important;}
+.border-none{border: 0px !important;}
+.bg-white{background: #FFFFFF !important; color: ;}
+.detail-list{padding: 10px 20px;}
+.detail-list li{line-height: 35px; color: #6c6c6c;}
+.detail-list li{line-height: 35px; color: #6c6c6c;}
+.title-title-h{margin:2px 5px;}
+.clearfix{*zoom:1;margin-top:80px;margin:0px;}
+.clearfix:after{content:"";display:block;clear:both;height:0;font:0;overflow:hidden;}
+.banner-h{height: 300px; overflow: hidden;position: relative;}
+.list-title{height: 45px; border-bottom: 1px solid #ededed; line-height: 45px;}
+.list-title img{vertical-align: middle;}
+.list-title-title { margin-left: 15px;}
+.list-title-right {float: right; margin-right: 20px; color: #cccccc;}
+.list-ul{padding: 0px 10px 0px 15px; height: 175px;}
+.list-ul li{border-bottom: 1px dashed #e9e9e9;  line-height: 30px; position: relative; position: relative;}
+.list-ul li:last-child{border-bottom: 0px dashed #e9e9e9; }
+.list-ul li div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis; height: 30px;}
+.list-ul li div img{margin-right: 5px;}
+.list-ul li a{float: right; color: #acacac; float: right;}
+.ui-frame-border{border:1px solid #e3e3e3;}
+.double-line{float: left;margin-top: 12px; width: 2px; height: 20px; background: #2DBCFA;}

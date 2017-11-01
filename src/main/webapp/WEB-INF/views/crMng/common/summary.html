@@ -1,0 +1,78 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<!-- 右侧具体内容栏目 -->
+<div class="">
+	<div class="col-sm-2" style="padding-top: 9px;">
+		<span style="font-weight: bolder;">▏个人客户</span>
+	</div>
+	<div style="padding-right: 5px; text-align: right;">
+		<a href="#" class="btn btn-default btn-white"> <span
+			class="glyphicon glyphicon-plus "></span>设为可疑
+		</a> <a href="#" class="btn btn-default btn-white"> <span
+			class="glyphicon glyphicon-check"></span>调整评级
+		</a> <a href="#" class="btn btn-default btn-white"> <span
+			class="glyphicon glyphicon-list-alt"></span>加入黑名单
+		</a>
+	</div>
+</div>
+<div id="rightContent" style="overflow: auto;">
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<!--个人户客模块-->
+		<div role="tabpanel" class="tab-pane active">
+			<form id="listForm" name="listForm" method="post" role="form">
+				<div class="panel panel-default">
+					<div class="panel-heading">概述信息</div>
+					<div class="panel-body form-group" style="margin: 0 auto">
+						<label class="col-sm-2 control-label">风险等级:</label> <a
+							class="col-sm-2"> 中 </a> <label class="col-sm-2 control-label">综合评分:</label>
+						<a class="col-sm-2"> 58 </a> <label class="col-sm-2 control-label">是否到期:</label>
+						<a class="col-sm-2"> 证件未到期 </a>
+					</div>
+
+					<div class="panel-body form-group" style="margin: 0 auto">
+						<label class="col-sm-2 control-label">涉及名单:</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="agencyCtid"
+								id="agencyCtid" />
+						</div>
+						<label class="col-sm-2 control-label">被报告次数:</label> <a
+							class="col-sm-2"> 1 </a> <label class="col-sm-2 control-label">客户类型:</label>
+						<a class="col-sm-2"> 商户 </a>
+					</div>
+
+					<div class="panel-body form-group" style="margin: 0 auto">
+						<label class="col-sm-2 control-label">免疫规则</label>
+						<div class="col-sm-2">
+							<select id="endtime" name="endtime"
+								class="selectpicker show-tick form-control"
+								data-style="btn-select" data-live-search="true"
+								data-selected-text-format="count">
+							</select>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="rightContent1" style="overflow: auto;">
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<!--个人户客模块-->
+		<div role="tabpanel" class="tab-pane active">
+			<div class="row clearfix">
+				<div class="width-per50-left h80" style="width: 500px;">
+					<div class="detail-name-h">最近半年交易变法</div>
+					<div class="detail-data-h">暂无数据</div>
+				</div>
+				<div class="width-per50-right h80" style="width: 500px;">
+					<div class="detail-name-h">最近半年交易变法</div>
+					<div class="detail-data-h">暂无数据</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<link href="${ctxPath}/static/css/main.css" rel="stylesheet">
+@}

@@ -1,0 +1,118 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+@layout("/common/_container.html"){	
+		<!-- 右侧具体内容栏目 -->
+			<div id="rightContent">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" >
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="col-sm-7">
+									<span style="font-weight: bolder;">▏指标定性设置</span>
+								</div>
+				        		<a href="#" class="btn btn-default" id="rankRule_add">
+						           <span class="glyphicon glyphicon-check" ></span>新增
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-unchecked"></span>显示
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-sort-by-attributes"></span>排序
+						        </a>
+						    </div>
+						</div>
+						<table id="rankRuleTableInit"></table>
+						<div class="col-xs-8 ">
+							<input type="hidden" class="form-control input-sm duiqi" name="rlCd" id="rlCd" value="${session.rlCd}"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--弹出添加用户Modal窗口-->
+			<div class="modal fade" id="addRankRule" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">新增指标定性</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+							<form id="addIRankRuleFrom">
+									<div class="form-group ">
+										<label for="account" class="col-xs-4 control-label">模型代码：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi" name="rId"  id="rId" placeholder="">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-4 control-label">规则因子：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="modleInd"  id="modleInd" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sLink" class="col-xs-4 control-label">因子公式：</label>
+										<div class="col-xs-8 ">
+											<input class="form-control input-sm duiqi"  id="indMatch" name="indMatch" placeholder="">
+										</div>
+									</div>
+							</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-green" id="saveRankRule">保 存</button>
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!--弹出修改用户Modal窗口-->
+			<div class="modal fade" id="reviseRankRule" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+			    <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                <h4 class="modal-title" id="gridSystemModalLabel">修改风险等级</h4>
+			            </div>
+			            <div class="modal-body">
+			                <div class="container-fluid">
+			                    <form class="form-horizontal" id="editForm">
+			                    </form>
+			                </div>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+			                <button type="button" class="btn btn-xs btn-green" id="editRankRule">保 存</button>
+			            </div>
+			        </div>
+	        <!-- /.modal-content -->
+		    	</div>
+		    </div>
+		    	<!--弹出删除用户警告窗口-->
+			<div class="modal fade" id="deleteRankRule" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="2gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								确定要删除该条风险等级？删除后不可恢复！
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="delId">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn  btn-xs btn-danger" onclick="delRankRuleSubmit()">确 定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<script src="${ctxPath}/static/modular/system/cRat/ratRankRule.js"></script>
+@}

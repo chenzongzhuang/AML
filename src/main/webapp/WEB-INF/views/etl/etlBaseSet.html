@@ -1,0 +1,74 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow: auto;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<div role="tabpanel" class="tab-pane active">
+			<div class="panel panel-default">
+				<div class="panel-heading">基础配置</div>
+			</div>
+			<div class="panel-body" style="overflow:hidden;">
+				<form class="form-horizontal" id="EtlBaseSetFrom" style="margin-top:3px;">
+					<div class="form-group ">
+						<label for="account" class="col-xs-3 control-label">编码配置：</label>
+						<div class="col-xs-8 ">
+							<input class="form-control input-sm duiqi" value="${etlBaseset.code}" name="code"
+								id="code" placeholder="">
+						<input type="hidden" id="id" name="id" value="${etlBaseset.id}"/>
+						</div>
+					</div> 
+					<div class="form-group ">
+						<label for="sName" class="col-xs-3 control-label">文件类型：</label>
+						<div class="col-xs-8 ">
+							<input class="form-control input-sm duiqi" value="${etlBaseset.dataPkgTp}" name="dataPkgTp" id="dataPkgTp"
+								placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sLink" class="col-xs-3 control-label">文件接收路径：：</label>
+						<div class="col-xs-8 ">
+							<input  class="form-control input-sm duiqi"
+								id="dataPath" name="dataPath" value="${etlBaseset.dataPath}" placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sOrd" class="col-xs-3 control-label">文件备份路径：</label>
+						<div class="col-xs-8">
+							<input  class="form-control input-sm duiqi"
+								id="dataBackPath" name="dataBackPath" value="${etlBaseset.dataBackPath}" placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sKnot" class="col-xs-3 control-label">文件解压路径：</label>
+						<div class="col-xs-8">
+							<input class="form-control input-sm duiqi" id="dataUnzipPath"
+								name="dataUnzipPath" value="${etlBaseset.dataUnzipPath}" placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sKnot" class="col-xs-3 control-label">路径来源：</label>
+						<div class="col-xs-8">
+							<input name="dataSoure" type="radio" value="" disabled/>数据库方式
+							&nbsp;&nbsp;&nbsp;&nbsp;<input name="dataSoure" type="radio" value="" checked="checked" disabled/>文件方式
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sKnot" class="col-xs-3 control-label">数据优先级：</label>
+						<div class="col-xs-8">
+						<input name="dataSouretp" type="radio" value="" checked="checked"  disabled/>来源库
+						&nbsp;&nbsp;&nbsp;&nbsp;<input name="dataSouretp" type="radio" value="" disabled/>目标库
+						</div>
+					</div>
+					<div class="form-group" >
+						<div class="col-xs-8" style="text-align:center"> 
+						 	<input type="button" id="save_btn" onclick="esitBeseSet()" value="保存"/>
+					  		<input type="button" id="edit_btn" onclick="esitBeseSet()" value="编辑">
+						</div>
+					 </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/modular/etl/etlBaseset.js"></script>
+@}

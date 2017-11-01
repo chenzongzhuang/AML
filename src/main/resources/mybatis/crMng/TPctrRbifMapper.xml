@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.crMng.mapper.TPctrRbifMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.crMng.entity.TPctrRbif">
+		<result column="id" property="id" />
+		<result column="pkg_id" property="pkgId" />
+		<result column="rep_name" property="repName" />
+		<result column="seq_no" property="seqNo" />
+		<result column="rinm" property="rinm" />
+		<result column="firc" property="firc" />
+		<result column="cimc" property="cimc" />
+		<result column="sctn" property="sctn" />
+		<result column="ttnm" property="ttnm" />
+		<result column="rep_tp" property="repTp" />
+		<result column="rep_st" property="repSt" />
+		<result column="aut_st" property="autSt" />
+		<result column="aut_nt" property="autNt" />
+		<result column="snd_st" property="sndSt" />
+		<result column="bck_st" property="bckSt" />
+		<result column="redt" property="redt" />
+		<result column="rfnm" property="rfnm" />
+		<result column="fsize" property="fsize" />
+		<result column="rbch_no" property="rbchNo" />
+		<result column="page_name" property="pageName" />
+		<result column="trdt" property="trdt" />
+		<result column="att_name" property="attName" />
+		<result column="mer_unit" property="merUnit" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		id,
+		pkg_id,
+		rep_name,
+		seq_no,
+		rinm,
+		firc,
+		cimc,
+		sctn,
+		ttnm,
+		rep_tp,
+		rep_st,
+		aut_st,
+		aut_nt,
+		snd_st,
+		bck_st,
+		redt,
+		rfnm,
+		fsize,
+		rbch_no,
+		page_name,
+		trdt,
+		att_name,
+		mer_unit
+	</sql>
+
+	<!-- 查询 -->
+	<select id="findAllTPctrRbif" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_pctr_rbif
+		where
+		1=1
+<!-- 		<if test="ctifId != null and ctifId != ''"> -->
+<!-- 			AND ctif_id = #{ctifId} -->
+<!-- 		</if> -->
+		ORDER BY id ASC
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,146 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+@layout("/common/_container.html"){	
+		<!-- 右侧具体内容栏目 -->
+		<form id="excelForm">
+			<div id="rightContent">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="col-sm-7">
+									<span style="font-weight: bolder;">▏调整评级审核</span>
+								</div>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-check"></span>审核
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-list-alt"></span>全部审核
+						        </a>
+				        		<a href="#" class="btn btn-default" id="exportExcel">
+						           <span class="glyphicon glyphicon-new-window"></span>导出
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-unchecked"></span>显示
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-sort-by-attributes"></span>排序
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-search"></span>高级查询
+						        </a>
+						    </div>
+						    <div class="panel-body form-group" style="margin-bottom:0px;">
+						        <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">客户号：</label>
+						        <div class="col-sm-2">
+						        	<input type="text" class="form-control" name="cstId" id="cstId"/>
+						            <input type="hidden" class="form-control" name="clientTp" id="clientTp" value="1"/>
+						            <input type="hidden" class="form-control" name="rkTp" id="rkTp" value="1"/>
+						            <input type="hidden" class="form-control" name="stus" id=stus value=""/>
+						            <input type="hidden" class="form-control" name="flag" id="flag" value="prsn"/>
+						        </div>
+						        <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">客户名称：</label>
+						        <div class="col-sm-2">
+						            <input type="text" class="form-control" name="ctnm" id="ctnm"/>
+						        </div>
+						     </div>
+						     <div class="panel-body form-group" style="margin-bottom:0px;">
+						     	<label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">当前等级：</label>
+						       <div class="col-sm-2">
+								    <select id="status"
+								            name="status"
+								            class="selectpicker show-tick form-control"
+								            data-style="btn-select" data-live-search="true" data-selected-text-format="count">
+								    </select>
+								</div>
+						     	<label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">调整等级：</label>
+						        <div class="col-sm-2">
+						            <select id="fstAutRank"
+								            name="fstAutRank"
+								            class="selectpicker show-tick form-control"
+								            data-style="btn-select" data-live-search="true" data-selected-text-format="count">
+								    </select>
+						        </div>
+						        <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px">调整事由：</label>
+						        <div class="col-sm-2">
+						            <select id="fstManRank"
+								            name="fstManRank"
+								            class="selectpicker show-tick form-control"
+								            data-style="btn-select" data-live-search="true" data-selected-text-format="count">
+								    </select>
+						        </div>
+						     </div>
+						     <div class="panel-body form-group" style="margin-bottom:0px;">
+						     	<label class="col-sm-2 control-label" style="text-align: right; margin-top:5px;">分支机构：</label>
+								<div class= "col-sm-2">
+								    <select id="merUnit"
+								            name="merUnit"
+								            class="selectpicker show-tick form-control"
+								            data-style="btn-select" data-live-search="true" data-selected-text-format="count">
+								    </select>
+								</div>
+								 <!--指定 date标记-->  
+						        <label class="col-sm-2 control-label" style="text-align: right; margin-top:5px;">调整时间：</label>
+					            <div class='input-group date' id='startdiv' style="float: left; left: 16px;top:8px;">  
+					                <input type='text' class="form-control" style="width: 180px; height: 30px;" id="fstAutTimeStart" name="fstAutTimeStart"/>  
+					                <span class="input-group-addon" style="float: left; width: 50px; height: 30px;">  
+					                    <span class="glyphicon glyphicon-calendar" ></span>  
+					                </span>  
+					            </div> 
+					            <span class="glyphicon glyphicon-minus" style="float: left; left: 20px;top:16px;"></span> 
+					            <div class='input-group date' id='endDiv' style="float: left; left: 28px;top:8px;">  
+					                <input type='text' class="form-control" style="width: 180px; height: 30px;"  id="fstAutTimeEnd" name="fstAutTimeEnd"/>  
+					                <span class="input-group-addon" style="float: left; width: 50px; height: 30px;">  
+					                    <span class="glyphicon glyphicon-calendar"></span>  
+					                </span>  
+					            </div>
+						     </div>
+						       <div class="panel-body form-group">
+							     <div >
+						            <div class="col-xs-5">
+									</div>
+						            <a href="#" class="btn btn-default btn-primary" id="newCRatQry">
+							           <span></span>查询
+							        </a>
+							        <a href="#" class="btn btn-default btn-primary" id="newCRatRefQry">
+							           <span></span>精确查询
+							        </a>
+						         </div>
+					          </div>
+						</div>
+						<table id="newCRatDataTable"></table>
+					</div>
+				</div>
+			</div>
+			<script src="${ctxPath}/static/modular/system/cRat/imRevRRat.js"></script>
+			<script src="${ctxPath}/static/jquery/jquery-1.11.3.min.js"></script>  
+			<link href="${ctxPath}/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+			<script src="${ctxPath}/static/bootstrap/js/bootstrap.min.js"></script>
+			<link href="${ctxPath}/static/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+			<link href="${ctxPath}/static/bootstrap/css/bootstrap-select.css" rel="stylesheet">
+			<script src="${ctxPath}/static/bootstrap/js/moment-with-locales.min.js"></script>  
+			<script src="${ctxPath}/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+			<script src="${ctxPath}/static/bootstrap/js/bootstrap-select.js"></script>
+			<script src="${ctxPath}/static/js/plugins/validate/bootstrapValidator.min.js"></script>
+			<link href="${ctxPath}/static/css/plugins/validate/bootstrapValidator.min.css" rel="stylesheet">
+			<script src="${ctxPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+			<script src="${ctxPath}/static/js/bootstrap.min.js?v=3.3.6"></script>
+			<script src="${ctxPath}/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+			<script src="${ctxPath}/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			<script src="${ctxPath}/static/js/plugins/layer/layer.min.js"></script>
+			<script src="${ctxPath}/static/js/common/jquery.nouislider.js"></script>
+			<script src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.js"></script>
+		</form>
+<script type="text/javascript">
+	$(function () {  
+	    $('#startdiv').datetimepicker({  
+	        format: 'YYYY-MM-DD',  
+	        locale: moment.locale('zh-cn')  
+	    });
+	    $('#endDiv').datetimepicker({  
+	        format: 'YYYY-MM-DD',  
+	        locale: moment.locale('zh-cn')  
+	    });
+	}); 
+</script>
+@}

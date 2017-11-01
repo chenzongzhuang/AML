@@ -1,0 +1,13 @@
+<xml>
+<row><column colspan="2" css="font-size:15;border:none;font-weight:bold;text-align:center;">评级模型-风险等级维护</column></row>
+<row>
+<columnTitle title="序号"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">id</columnTitle>
+<columnTitle title="等级代码"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">rkCd</columnTitle>
+<columnTitle title="等级名称"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">rkNm</columnTitle>
+<columnTitle title="下限分值"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">minVal</columnTitle>
+<columnTitle title="上限分值"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">maxVal</columnTitle>
+<columnTitle title="评定周期（月）"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">ascc</columnTitle>
+<columnTitle title="控制措施"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">ctms</columnTitle>
+<columnTitle title="备注"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">rkds</columnTitle>
+</row>
+</xml>

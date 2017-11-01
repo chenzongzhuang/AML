@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.shadinessSub.mapper.ShadinessSubMapper">
+<!-- 待可疑 -->
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.shadinessSub.entity.ShadinessSub">
+	</resultMap>
+<!-- 待可疑 主体-->
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id  ,
+		warning_Date ,
+		early_War_Rules ,
+		sub_Name ,
+		id_No ,
+		p_Mert_Numr  , 
+		tra_Amo  ,
+		num_Of_Tran  ,
+		risk_Grade  ,
+		comp_Score  ,
+		cause_Exp  ,
+		details ,
+		branch ,
+		area_Roll_Type,
+		make_Up_State,
+		verify_Status   
+	</sql>
+<!-- 待可疑交易-->	
+	<sql id="Base_Column_List_Trd">
+		warning_Date ,
+	 work_No ,
+	 early_War_Rules ,
+	 sub_Name ,
+	 id_No ,
+	tran_Date ,
+	fund_Mark ,
+	coun_Name ,
+	coun_Id_No ,
+	tra_Comm_Name ,
+	cause_Exp ,
+	details ,
+	area_Roll_Type ,
+	id,
+	tran_Amount,
+	make_Up_State,
+	verify_Status 
+	</sql>
+	
+	
+	<!-- 待可疑 主体-->
+	<select id="find" resultType="com.aml.shadinessSub.entity.ShadinessSub">
+		select <include refid="Base_Column_List"></include> from  t_stan_shadinessSub where details = #{details}
+		
+		<if test="subName != null and subName != ''">
+			and sub_Name like CONCAT('%','${subName}','%')
+		</if>
+		<if test="idNo != null and idNo != ''">
+			and id_No like CONCAT('%', '${idNo}','%')
+		</if>
+		<if test="earlyWarRules != null and earlyWarRules != ''">
+			and early_War_Rules like CONCAT('%', '${earlyWarRules}','%')
+		</if>
+		
+		<if test="branch != null and branch != ''">
+			and branch like CONCAT('%', '${branch}','%')
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and warning_Date(esse_create_date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and warning_Date(esse_create_date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+		order by warning_Date desc   limit #{currentPage},#{currentReslut}
+	</select>
+	
+	<select id="qyeryCount" resultType="com.aml.shadinessSub.entity.ShadinessSub">
+		select <include refid="Base_Column_List"></include> from  t_stan_shadinessSub where details = #{details}
+		<if test="subName != null and subName != ''">
+			and sub_Name like CONCAT('%','${subName}','%')
+		</if>
+		<if test="idNo != null and idNo != ''">
+			and id_No like CONCAT('%', '${subName}','%')
+		</if>
+		<if test="earlyWarRules != null and earlyWarRules != ''">
+			and early_War_Rules like CONCAT('%', '${subName}','%')
+		</if>
+		
+		<if test="branch != null and branch != ''">
+			and branch like CONCAT('%', '${branch}','%')
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and warningDate(esse_create_date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and warningDate(esse_create_date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+	</select>
+	
+	<update id="updateById">
+		update t_stan_shadinessSub set details =#{details},set cause_Exp =#{causeExp},set area_Roll_Type=#{causecCategory} 
+		<if test="makeUpState != null and makeUpState != ''">
+			, set  make_Up_State = #{makeUpState}
+		</if>
+		where id in <foreach  collection="idNoList" index="index" item="i" open="("
+			separator="," close=")">
+			#{i}
+			</foreach>
+	</update>
+
+	
+	<!-- 待可疑 交易-->
+	 <select id="findTrd" resultType="com.aml.shadinessSub.entity.ShadinessSub">
+		select <include refid="Base_Column_List_Trd"></include> from  t_stan_shadinessTrd where details = #{details}
+		
+		<if test="workNo != null and workNo != ''">
+			and work_No like CONCAT('%','${workNo}','%')
+		</if>
+		<if test="subName != null and subName != ''">
+			and sub_Name like CONCAT('%', '${subName}','%')
+		</if>
+		<if test="idNo != null and idNo != ''">
+			and id_No like CONCAT('%', '${idNo}','%')
+		</if>
+		
+		<if test="earlyWarRules != null and earlyWarRules != ''">
+			and early_WarRules like CONCAT('%', '${earlyWarRules}','%')
+		</if>
+		
+		<if test="mts != null and mts != ''">
+			and trd_Account like CONCAT('%', '${mts}','%')
+		</if>
+		
+		<if test="bankAccount != null and bankAccount != ''">
+			and bank_Account like CONCAT('%', '${bankAccount}','%')
+		</if>
+		
+		<if test="branch != null and branch != ''">
+			and branch like CONCAT('%', '${branch}','%')
+		</if>
+		
+		<if test="tranAmount != null and tranAmount != ''">
+		 <![CDATA[	and  trd_Account>#{tranAmount} ]]>
+		</if>
+		<if test="tranAmount != null and tranAmount != ''">
+
+		<![CDATA[and trd_Account<=#{tranAmount} ]]> 
+		</if>
+		
+		<if test="startEsseBriDate != null and startEsseBriDate != ''">
+		 <![CDATA[	and  date_format(tran_Date,'%Y-%m-%d')>#{startEsseBriDate} ]]>
+		</if>
+		<if test="endEsseBriDate != null and endEsseBriDate != ''">
+
+		<![CDATA[and date_format(tran_Date,'%Y-%m-%d')<=#{endEsseBriDate} ]]> 
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and date_format(warning_Date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and date_format(warning_Date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+		order by warning_Date desc   limit #{currentPage},#{currentReslut}
+	</select>
+	
+	<select id="qyeryCountTrd" resultType="com.aml.shadinessSub.entity.ShadinessSub">
+		select <include refid="Base_Column_List_Trd"></include> from  t_stan_shadinessTrd where details = #{details}
+		
+		<if test="workNo != null and workNo != ''">
+			and work_No like CONCAT('%','${workNo}','%')
+		</if>
+		<if test="subName != null and subName != ''">
+			and sub_Name like CONCAT('%', '${subName}','%')
+		</if>
+		<if test="idNo != null and idNo != ''">
+			and id_No like CONCAT('%', '${idNo}','%')
+		</if>
+		
+		<if test="earlyWarRules != null and earlyWarRules != ''">
+			and early_WarRules like CONCAT('%', '${earlyWarRules}','%')
+		</if>
+		
+		<if test="mts != null and mts != ''">
+			and trd_Account like CONCAT('%', '${mts}','%')
+		</if>
+		
+		<if test="bankAccount != null and bankAccount != ''">
+			and bank_Account like CONCAT('%', '${bankAccount}','%')
+		</if>
+		
+		<if test="branch != null and branch != ''">
+			and branch like CONCAT('%', '${branch}','%')
+		</if>
+		
+		<if test="tranAmount != null and tranAmount != ''">
+		 <![CDATA[	and  trd_Account>#{tranAmount} ]]>
+		</if>
+		<if test="tranAmount != null and tranAmount != ''">
+
+		<![CDATA[and trd_Account<=#{tranAmount} ]]> 
+		</if>
+		
+		<if test="startEsseBriDate != null and startEsseBriDate != ''">
+		 <![CDATA[	and  date_format(tran_Date,'%Y-%m-%d')>#{startEsseBriDate} ]]>
+		</if>
+		<if test="endEsseBriDate != null and endEsseBriDate != ''">
+
+		<![CDATA[and date_format(tran_Date,'%Y-%m-%d')<=#{endEsseBriDate} ]]> 
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and date_format(warning_Date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and date_format(warning_Date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+	</select>
+	
+	
+	
+	<update id="updateTrdById">
+		update t_stan_shadinessTrd set details =#{details},set cause_Exp =#{causeExp},set area_Roll_Type=#{causecCategory} 
+		<if test="makeUpState != null and makeUpState != ''">
+			, set  make_Up_State = #{makeUpState}
+		</if>
+	   where id in <foreach  collection="idNoList" index="index" item="i" open="("
+		separator="," close=")">
+		#{i}
+		</foreach>
+	</update>
+
+
+</mapper>

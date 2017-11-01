@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.TStanTargetDetailMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.sys.entity.TStanTargetDetail">
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+ 
+	<sql id="Base_Column_List">
+		target_id,target_detail_id, target_desc, target_desc, target_count_con_desc, target_create_date,target_enable,target_column1
+	</sql>
+    
+    
+	
+    
+	<select id="findTarget" resultType="com.aml.sys.entity.TStanTargetDetail">
+	    select 
+	   	<include refid="Base_Column_List" />
+	    from t_stan_target_detail
+	    where target_id = #{targetId}
+		order by target_create_date desc   limit #{currentPage},#{currentReslut}
+	</select>
+	  
+	<insert id="addTarget">
+		insert into t_stan_target_detail(target_id,target_detail_id,target_desc,target_count_con_desc,target_create_date,target_enable,target_column1)
+		values (#{targetId},#{targetDetailId},#{targetDesc},#{targetCountConDesc},now(),'Y',#{targetColumn1})
+	</insert>
+	
+	<delete id="deleteTargetByTargetId">
+	   	delete  from t_stan_target_detail where target_detail_id = #{targetDetailId}
+	</delete>
+	   
+	 <update id="updateTargetByTargetId">
+	   	update t_stan_target_detail set  target_desc =#{targetDesc},target_count_con_desc =#{targetCountConDesc}  where target_detail_id =#{targetDetailId}
+	</update>
+	
+
+</mapper>

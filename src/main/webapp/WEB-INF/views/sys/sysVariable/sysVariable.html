@@ -1,0 +1,94 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow:auto;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<!--系统变量管理模块-->
+			<div role="tabpanel" class="tab-pane active">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-heading">
+							<a href="#" class="btn btn-default"> <span
+								class="glyphicon glyphicon-unchecked"></span>显示
+							</a> <a href="#" class="btn btn-default"> <span
+								class="glyphicon glyphicon-sort-by-attributes"></span>排序
+							</a> <a href="#" class="btn btn-default"> <span
+								class="glyphicon glyphicon-search"></span>高级查询
+							</a>
+						</div>
+					</div>
+					<div class="panel-body form-group" style="margin:0 auto">
+						<label class="col-sm-1 control-label">变量名称：</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="searchCode" id="searchCode"/>
+						</div>
+						<label class="col-sm-1 control-label">变量说明：</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="searchName" id="searchName"/>
+						</div>
+					   <div class="col-md-3 col-md-offset-3" >
+						   <button class="btn btn-primary" id="search_btn">查询</button>
+					   </div>
+					 </div>
+				</div>
+				<div  class="panel-body">
+					<table id="dataTable"></table>
+				</div>
+			</div>
+			
+			<!--弹出修改系统变量Modal窗口-->
+		<div class="modal fade" id="reviseSysVariable" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="gridSystemModalLabel">修改变量</h4>
+		            </div>
+		            <div class="modal-body">
+		                <div class="container-fluid">
+		                    <form class="form-horizontal" id="editForm">
+		                    </form>
+		                </div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+		                <button type="button" class="btn btn-xs btn-green" id="editBtn">保 存</button>
+		            </div>
+		        </div>
+        <!-- /.modal-content -->
+	    </div>
+	    <!-- /.modal-dialog -->
+		</div>
+			<script>
+			    $("#reviseSysVariable").on("hidden.bs.modal",function () {
+			        $("#reviseSysVariable").remove();
+			    });
+			    $(function () {
+			        $("#editBtn").click(function(){
+			        	$.ajax({
+			        		type:'post',
+			        		dataType : 'json',
+			        		url:editSysVariable,
+			        		timeout:3000,
+			        		data:$('#editForm').serialize(),
+			        		error:function () {
+			        			alert("网络出现异常，请稍后再试！");
+			        		},
+			        		success:function (data) {
+			        			var json = eval(data);
+			        			if("success"==json.data.arg){
+			        				alert("修改成功！");
+			        				$("#reviseSysVariable").modal("hide");
+			        				 window.location.reload();
+			        			}else{
+			        				alert("修改失败！");
+			        			}
+			        		}
+			        	});
+			        })
+			    })
+			</script>
+		</div>
+</div>
+<script src="${ctxPath}/static/modular/system/sysVariable/sysVariable.js"></script>
+@}

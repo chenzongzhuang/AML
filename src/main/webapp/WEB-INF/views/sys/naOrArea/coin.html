@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>traget.html</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<link href="${ctxPath}/static/css/bootstrap.min.css" rel="stylesheet" />
+<link
+	href="${ctxPath}/static/css/plugins/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
+<link
+	href="${ctxPath}/static/css/plugins/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
+<link href="${ctxPath}/static/css/animate.min.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/bootstrapValidator/bootstrapValidator.min.css" />
+<link rel="stylesheet" href="${ctxPath}/static/css/style.min.css" />
+
+<script src="${ctxPath}/static/jquery/jquery-1.11.3.min.js"
+	type="text/javascript"></script>
+<script src="${ctxPath}/static/js/bootstrap.min.js"></script>
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+
+<script src="${ctxPath}/static/js/jquery.min.js"></script>
+<script src="${ctxPath}/static/js/bootstrap.min.js"></script>
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+<script
+	src="${ctxPath}/static/js/plugins/bootstrapValidator/bootstrapValidator.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui-custom.min.js"></script>
+
+
+<style>
+.back:hover {
+	cursor: pointer;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group:last-child>.btn {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+label {
+	width: 100px;
+}
+
+.popup_de {
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.bbox {
+	display: -webkit-box;
+	/* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+	display: -moz-box; /* 老版本语法: Firefox (buggy) */
+	display: -ms-flexbox; /* 混合版本语法: IE 10 */
+	display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+	display: -moz-flex;
+	display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+
+.bbox.xycenter {
+	-moz-box-pack: center; /*Firefox*/
+	-webkit-box-pack: center; /*Safari,Opera,Chrome*/
+	box-pack: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-moz-box-align: center; /*Firefox*/
+	-webkit-box-align: center; /*Safari,Opera,Chrome*/
+	box-align: center;
+	-moz-align-items: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.popup_de .popup_box {
+	width: 300px;
+	height: 150px;
+	font-family: '微软雅黑';
+	background-color: #fff;
+	border-radius: 5px;
+	color: #333;
+}
+
+.popup_de .popup_btn {
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	border-radius: 3px;
+	border: 1px solid #1ab394;
+	font-size: 15px;
+	text-align: center;
+	line-height: 30px;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+.popup_de .show_msg {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.popup_de .popup_close {
+	width: 30px;
+	height: 30px;
+	font-size: 25px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	float: right;
+	border-top-right-radius: 5px;
+	line-height: 30px;
+}
+
+.popup_de .popup_close:hover {
+	background-color: #1ab394;
+	color: #fff;
+}
+
+.popup_de .btn_submit {
+	background-color: #1ab394;
+	color: #fff;
+}
+
+.popup_de .btn_box {
+	text-align: center;
+}
+</style>
+
+
+</head>
+
+<body>
+	<div class="tableBody">
+		<div class="panel panel-default">
+			<div class="panel-heading">查询条件</div>
+			<div class="panel-body form-group" style="margin-bottom:0px;">
+				<label class="col-sm-2 control-label"
+					style="text-align: right; margin-top:5px">英文代码：</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="mainEn"
+						id="search_name" />
+				</div>
+				<label class="col-sm-2 control-label"
+					style="text-align: right; margin-top:5px">中文简称：</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" name="mainCn"
+						id="search_tel" />
+				</div>
+				<div class="col-sm-2 pull-right">
+					<button class="btn btn-primary" id="search_btn">查询</button>
+				</div>
+
+			</div>
+		</div>
+		<table id="mytab" class="table table-hover"></table>
+		<div id="toolbar" class="btn-group pull-right"
+			style="margin-right: 20px;">
+			<button id="btn_edit" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+			</button>
+			<button id="btn_delete" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+			</button>
+			<button id="btn_add" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+			</button>
+		</div>
+	</div>
+	<div class="modal fade" style="width:100%;position: absolute;top:10px"
+		id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="ibox-title">
+						<h5>新增用户</h5>
+					</div>
+					<div class="ibox-content">
+						<form id="addForm" method="post" class="form-horizontal"
+							action="target.php">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">英文代码</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="LoginName"
+										id="add_LoginName" />
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">数字代码</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="Name"
+										id="add_Name" />
+								</div>
+							</div>
+							<div class="hr-line-dashed" style="display:none"></div>
+							<div class="form-group" style="display:none">
+								<label class="col-sm-2 control-label">中文简称</label>
+								<div class="col-sm-10 role add"></div>
+							</div>
+							<div id="pwd">
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">中文全称</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="Pwd"
+											id="add_Pwd" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">英文简称</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="Tel"
+											id="add_Tel" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">英文全称</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="Email"
+											id="add_Email" />
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="hr-line-dashed"></div>
+								<div class="modal-footer">
+									<div class="col-sm-2 col-sm-offset-2">
+										<button type="button" class="btn btn-primary btn-block"
+											id="add_saveBtn">保存</button>
+									</div>
+									<div class="col-sm-2 col-sm-offset-1">
+										<button type="button" class="btn btn-default btn-block"
+											id="add_backBtn">返回</button>
+									</div>
+								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="changeBody"
+		style="width:100%; height:500px; display: none;position: absolute;top:10px;">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>修改用户信息</h5>
+				</div>
+				<div class="ibox-content">
+					<form id="editForm" method="post" class="form-horizontal">
+						<div class="form-group" style="display:none">
+							<label class="col-sm-2 control-label">ID</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="ID" id="edit_ID" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">登录名</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="LoginName"
+									id="edit_LoginName" readonly />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="Name"
+									id="edit_Name" />
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display:none"></div>
+						<div class="form-group" style="display:none">
+							<label class="col-sm-2 control-label">角色</label>
+							<div class="col-sm-10 role edit"></div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">手机号</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="Tel" id="edit_Tel" />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">邮箱</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="Email"
+									id="edit_Email" />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">状态</label>
+							<div class="col-sm-10">
+								<label> <input type="radio" name="Attribute" value=1
+									id="edit_Attribute" /> 正常
+								</label> <label> <input type="radio" name="Attribute" value=2
+									id="edit_Attribute" /> 锁定
+								</label>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<div class="col-sm-2 col-sm-offset-2">
+								<button type="button" class="btn btn-primary btn-block"
+									id="edit_saveBtn">保存</button>
+							</div>
+							<div class="col-sm-2 col-sm-offset-1">
+								<button type="button" class="btn btn-default btn-block"
+									id="edit_backBtn">返回</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="popup_de xycenter">
+		<div class="popup_box">
+			<span class="popup_close" value="关闭">×</span> <span class="show_msg">确定要删除该权限吗？</span>
+			<div class="btn_box">
+				<div class="popup_btn btn_submit" value="确定">确定</div>
+				<div class="popup_btn btn_cancel" value="取消">取消</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(function(){
+	//根据窗口调整表格高度
+    $(window).resize(function() {
+        $("'#mytab").bootstrapTable('resetView', {
+            height: tableHeight()
+        })
+    })
+    //生成用户数据
+    $("#mytab").bootstrapTable({
+    	method: 'post',
+    	contentType: "application/x-www-form-urlencoded",
+    	url:"/target/QuaryTarget/findNaOrEare",
+    	height:tableHeight(),//高度调整
+    	toolbar: "#toolbar",
+    	dataType: "json",
+    	striped: true, //是否显示行间隔色
+    	/* dataField: "res", */
+    	pageNumber: 1, //初始化加载第一页，默认第一页
+    	pagination:true,//是否分页
+    	queryParamsType:"limit",
+    	idField: "mainId",
+    	queryParams:queryParams,
+    	sidePagination:"server",
+    	pageSize:10,//单页记录数
+    	pageList:[5,10,20,30],//分页步进值
+    	showRefresh:true,//刷新按钮
+    	showColumns:true,
+    	showFooter:true,
+    	showPaginationSwitch:true,
+    	clickToSelect: true,//是否启用点击选中行
+    	toolbarAlign:"right",
+    	buttonsAlign:"right",//按钮对齐方式
+    	toolbar:"#toolbar",//指定工作栏
+        smartDisplay: false,//智能显示分页按钮
+   		paginationPreText: "上一页",
+    	paginationNextText: "下一页",
+    	cardView: false, //是否显示详细视图
+    	columns:[
+        	{
+        		title:"全选",
+        		field:'select',
+        		checkbox:true,
+        		width:25,
+        		align:'center',
+        		valign:'middle'
+        	},
+        	{field: 'number', title: 'number',
+                formatter: function (value, row, index) {
+                    return index+1;
+            }},
+        	{
+        		title:"ID",
+        		field:'mainId',
+        		visible:false
+        	},
+        	{
+        		title:"英文代码",
+        		field:"mainEn",
+        		sortable:true
+        	},
+        	{
+        		title:'数字代码',
+        		field:'mainIn',
+        		sortable:true
+        	},
+        	{
+        		title:'中文全称',
+        		field:'mainCnFull'
+        	}
+    	],
+    	locale:'zh-CN',//中文支持,
+    	formatLoadingMessage: function () {
+		    			return "请稍等，正在加载中...";
+		    		},
+		    		formatNoMatches: function () {  //没有匹配的结果
+		    			return "无符合条件的记录";
+		    		},
+    	responseHandler: function(res) {
+			               return {
+			                    "total": res.data.records,//总页数
+			                    "rows": res.data.rows   //数据
+			                 };
+		    				
+		            },
+    })
+    /*
+     * 用户管理首页事件
+     */
+    //请求后台数据获取角色列表
+    var roleArr=[];
+    $.get('../index.php/admin/RoleManger/index',function(data){
+	  if(data.suc && data.res){
+		  for(var i=0;i<data.res.length;i++){
+			  var obj=new Object();
+			  obj.ID=data.res[i].ID;
+			  obj.Name=data.res[i].Name;
+			  roleArr[i]=obj;
+		  }
+		  //生成增加与修改页面的角色复选框
+		  var _roleHtml='';
+		  for(var i=0;i<roleArr.length;i++){
+			  _roleHtml+='<label><input type="checkbox" name="RoleID[]"   value="'+roleArr[i].ID+'"/> '+roleArr[i].Name+' </label>';
+		  }
+		  $('.role').html(_roleHtml);
+		  $('.role input').eq(0).attr('checked','true');
+		  //请求成功后生成增加用户页面表单内容
+		  $('#addForm').bootstrapValidator({
+		       	feedbackIcons: {
+		               valid: 'glyphicon glyphicon-ok',
+		               invalid: 'glyphicon glyphicon-remove',
+		               validating: 'glyphicon glyphicon-refresh'
+		           },
+		           fields: {
+		               LoginName: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '登录名不能为空'
+		                       },
+		                       stringLength:{
+		               			min:5,
+		               			max:15,
+		               			message:'姓名为5-10位'
+		               		}
+		                   }
+		               },
+		               Name: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '姓名不能为空'
+		                       },
+		               		stringLength:{
+		               			min:2,
+		               			max:10,
+		               			message:'姓名为2-10位'
+		               		}
+		                   }
+		               },
+		               'RoleID[]': {
+	                        validators: {
+	                            notEmpty: {
+	                                message: '角色至少选择一种'
+	                            }
+	                        }
+	                    },
+		               Pwd:{
+		               	validators:{
+		               		notEmpty:{
+		               			message:'密码不能为空'
+		               		},
+		                       stringLength:{
+		                       	min:6,
+		                       	max:128,
+		                       	message:'密码为6-128位'
+		                       }
+		               	}
+		               	
+		               },
+		               Attribute: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '状态不能为空'
+		                       }
+		                   }
+		               }
+		           }
+		     });
+		    $('#editForm').bootstrapValidator({
+		       	feedbackIcons: {
+		               valid: 'glyphicon glyphicon-ok',
+		               invalid: 'glyphicon glyphicon-remove',
+		               validating: 'glyphicon glyphicon-refresh'
+		           },
+		           fields: {
+		        	   ID:{
+		        		   validators:{
+		        			   notEmpty: {
+		                           message: 'ID不能为空'
+		                       } 
+		        		   }
+		        	   },
+		               LoginName: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '登录名不能为空'
+		                       }/*,
+		                       stringLength:{
+		               			min:5,
+		               			max:15,
+		               			message:'登录名为5-10位'
+		               		}*/
+		                   }
+		               },
+		               Name: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '姓名不能为空'
+		                       },
+		               		stringLength:{
+		               			min:2,
+		               			max:10,
+		               			message:'姓名为2-10位'
+		               		}
+		                   }
+		               },
+		               'RoleID[]': {
+	                        validators: {
+	                            notEmpty: {
+	                                message: '角色至少选择一种'
+	                            }
+	                        }
+	                    },
+		               Attribute: {
+		                   validators: {
+		                       notEmpty: {
+		                           message: '状态不能为空'
+		                       }
+		                   }
+		               }
+		           }
+		       });
+	  }else{
+		  console.log('后台角色列表获取失败！');
+	  }
+   });
+   function operateFormatter(value,row,index){
+    	if(value==2){
+    		return '<i class="fa fa-lock" style="color:red"></i>'
+    	}else if(value==1){
+    		return '<i class="fa fa-unlock" style="color:green"></i>'
+    	}else{
+    		return '数据错误'
+    	}
+    }
+
+    //请求服务数据时所传参数
+    function queryParams(params){
+    	return{
+    		 rows: params.limit,
+    		 page:params.offset+1, 
+    		 mainEn:$('#search_name').val(),
+    		 mainCnFull:$('#search_tel').val(),
+    		 mainType:"coin"
+    	}
+    }
+    //查询按钮事件
+    $('#search_btn').click(function(){
+    	$("#mytab").bootstrapTable('refresh', {url: "/target/QuaryTarget/findNaOrEare"});
+    })
+    
+    //增加按钮事件
+    $('#btn_add').click(function(){
+		/* $('.tableBody').addClass('animated slideOutLeft');
+		setTimeout(function(){
+			$('.tableBody').removeClass('animated slideOutLeft').css('display','none');
+		},500)
+		$('.addBody').css('display','block');
+		$('.addBody').addClass('animated slideInRight'); */
+		$('#myModal').modal();
+		
+    })
+    //删除按钮与修改按钮的出现与消失
+   /*   $('.bootstrap-table').change(function(){
+    	var dataArr=$('#mytab .selected');
+    	if(dataArr.length==1){
+    		$('#btn_edit').css('display','block').removeClass('fadeOutRight').addClass('animated fadeInRight');
+    	}else{
+    		$('#btn_edit').addClass('fadeOutRight');
+    		setTimeout(function(){
+    			$('#btn_edit').css('display','none');
+    		},400);	
+    	}
+    	if(dataArr.length>=1){
+    		$('#btn_delete').css('display','block').removeClass('fadeOutRight').addClass('animated fadeInRight');
+    	}else{
+    		$('#btn_delete').addClass('fadeOutRight');
+    		setTimeout(function(){
+    			$('#btn_delete').css('display','none');
+    		},400);	
+    	}
+    }); */ 
+    //修改按钮事件
+    $('#btn_edit').click(function(){
+    	var dataArr=$('#mytab').bootstrapTable('getSelections');
+    	$('.tableBody').addClass('animated slideOutLeft');
+		setTimeout(function(){
+			$('.tableBody').removeClass('animated slideOutLeft').css('display','none');
+		},500)
+		$('.changeBody').css('display','block');
+		$('.changeBody').addClass('animated slideInRight');
+		$('#edit_ID').val(dataArr[0].ID);
+		$('#edit_LoginName').val(dataArr[0].LoginName);
+		$('#edit_Name').val(dataArr[0].Name);
+		$('#edit_Tel').val(dataArr[0].Tel);
+		$('#edit_Email').val(dataArr[0].Email);
+		if(dataArr[0].Attribute==1){
+			$("#editForm input[name=Attribute]:eq(0)").prop("checked",true);
+			$("#editForm input[name=Attribute]:eq(1)").prop("checked",false);
+		}
+		else if(dataArr[0].Attribute==2){
+			$("#editForm input[name=Attribute]:eq(1)").prop("checked",true);
+			$("#editForm input[name=Attribute]:eq(0)").prop("checked",false);
+		}
+		//先清空角色复选框
+	    $('#editForm .edit input').prop('checked',false);
+		//获取用户角色
+		$.post('../index.php/admin/Index/getUserById',
+				{ID:dataArr[0].ID},
+				function(data){
+				   var roleIDArr=data.res.user.RoleID;
+                   //将对应用户的角色列表显示到对应的修改页
+                   for(var i=0;i<roleIDArr.length;i++){
+                	   for(var j=0;j<$('#editForm .edit input').length;j++){
+                		   if(roleIDArr[i]==$('#editForm .edit input:eq('+j+')').val()){
+                			   $('#editForm .edit input:eq('+j+')').prop('checked',true);
+                		   }
+                	   }
+                   }
+		        }
+		);
+    })
+    /*
+     * 用户管理增加用户页面所有事件
+    */
+    //增加页面表单验证   
+    // Validate the form manually
+    $('#add_saveBtn').click(function() {
+       //点击保存时触发表单验证
+       $('#addForm').bootstrapValidator('validate');
+       //如果表单验证正确，则请求后台添加用户
+       if($("#addForm").data('bootstrapValidator').isValid()){
+    	   var _info = $('#addForm').serialize();
+    	  $.post(
+				"../index.php/admin/index/insertUser",
+				$('#addForm').serialize(),
+				function(data){
+					//后台返回添加成功
+					if(data.suc==true){
+						$('.addBody').addClass('animated slideOutLeft');
+				    	setTimeout(function(){
+							$('.addBody').removeClass('animated slideOutLeft').css('display','none');
+						},500);
+				    	$('.tableBody').css('display','block').addClass('animated slideInRight');
+				    	$('#mytab').bootstrapTable('refresh', {url: '../index.php/admin/index/userManagement'});
+				    	$('#addForm').data('bootstrapValidator').resetForm(true);
+				    	//隐藏修改与删除按钮
+						$('#btn_delete').css('display','none');
+						$('#btn_edit').css('display','none');
+					}
+					//否则
+					else{
+					}
+				}
+			) 
+       }
+    });
+    //增加页面返回按钮事件
+    $('#add_backBtn').click(function() {
+    	$('.addBody').addClass('animated slideOutLeft');
+    	setTimeout(function(){
+			$('.addBody').removeClass('animated slideOutLeft').css('display','none');
+		},500)
+    	$('.tableBody').css('display','block').addClass('animated slideInRight');  
+    	$('#addForm').data('bootstrapValidator').resetForm(true);
+    });
+    /*
+     * 用户管理修改用户页面所有事件
+    */
+    //修改页面回退按钮事件
+    $('#edit_backBtn').click(function(){
+    	$('.changeBody').addClass('animated slideOutLeft');
+    	setTimeout(function(){
+			$('.changeBody').removeClass('animated slideOutLeft').css('display','none');
+		},500)
+    	$('.tableBody').css('display','block').addClass('animated slideInRight'); 
+    	$('#editForm').data('bootstrapValidator').resetForm(true);
+    })
+    //修改页面保存按钮事件
+    $('#edit_saveBtn').click(function(){
+    	$('#editForm').bootstrapValidator('validate');
+    	if($("#editForm").data('bootstrapValidator').isValid()){
+    		 $.post("../index.php/admin/index/updateUserById",
+				$('#editForm').serialize(),
+				function(data){
+					if(data.suc==true){
+						//隐藏修改与删除按钮
+						$('#btn_delete').css('display','none');
+						$('#btn_edit').css('display','none');
+						//回退到人员管理主页
+						$('.changeBody').addClass('animated slideOutLeft');
+				    	setTimeout(function(){
+							$('.changeBody').removeClass('animated slideOutLeft').css('display','none');
+						},500)
+				    	$('.tableBody').css('display','block').addClass('animated slideInRight'); 
+				    	//刷新人员管理主页
+				    	$('#mytab').bootstrapTable('refresh', {url: '../index.php/admin/index/userManagement'});
+				    	//修改页面表单重置
+				    	$('#editForm').data('bootstrapValidator').resetForm(true);
+					}else{
+					}
+			    }
+    		 ) 
+    	}
+    })
+    //删除事件按钮
+    $('#btn_delete').click(function(){
+    	var dataArr=$('#mytab').bootstrapTable('getSelections');
+    	$('.popup_de .show_msg').text('确定要删除该用户吗?');
+    	$('.popup_de').addClass('bbox');
+    	$('.popup_de .btn_submit').one('click',function(){
+    		var ID=[];
+        	for(var i=0;i<dataArr.length;i++){
+        		ID[i]=dataArr[i].ID;
+        	}
+        	$.post("../index.php/admin/index/deleteUserById",
+        			{ID:ID},
+        			function(data){
+        		if(data.suc==true){
+        			$('.popup_de .show_msg').text('删除成功！');
+					$('.popup_de .btn_cancel').css('display','none');
+					$('.popup_de').addClass('bbox');
+					$('.popup_de .btn_submit').one('click',function(){
+						$('.popup_de').removeClass('bbox');
+					})
+        			$('#mytab').bootstrapTable('refresh', {url: '../index.php/admin/index/userManagement'});
+        		}else{
+        		}
+        	});
+    	})
+    })
+    //弹出框取消按钮事件
+   　　$('.popup_de .btn_cancel').click(function(){
+	   $('.popup_de').removeClass('bbox');
+   　　})
+    //弹出框关闭按钮事件
+     $('.popup_de .popup_close').click(function(){
+	   $('.popup_de').removeClass('bbox');
+   　　})
+})
+function tableHeight() {
+    return $(window).height() - 140;
+}
+	</script>
+	<div style="display:none">
+		<script src='${ctxPath}/static/js/plugins/stat/stat.js'
+			language='JavaScript' charset='gb2312'></script>
+	</div>
+</body>
+</html>
+

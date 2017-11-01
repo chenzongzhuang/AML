@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.RatMSetMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="ratMFctResultMap" type="com.aml.cRat.entity.RatMFct">
+		<id column="ID" property="id" />
+		<result column="MDL_CD" property="mdlCd" />
+		<result column="MDL_VER" property="mdlVer" />
+		<result column="LVL_NO" property="lvlNo" />
+		<result column="FCT_LVL" property="fctLvl" />
+		<result column="FCT_CD" property="fctCd" />
+		<result column="FCT_NM" property="fctNm" />
+		<result column="FCT_TP" property="fctTp" />
+		<result column="FCT_KD" property="fctKd" />
+		<result column="SUP_LVL" property="supLvl" />
+		<result column="CONFIG" property="config" />
+		<result column="STATUS" property="status" />
+		<result column="WEIGHT_VAL" property="weightVal" />
+		<result column="WARN_VAL" property="warnVal" />
+		<result column="DFT_VAL" property="dftVal" />
+		<result column="REMARK" property="remark" />
+		<result column="IND_KIND" property="indKind" />
+		<result column="IND_ITEM" property="indItem" />
+		<result column="MUT_FLAG" property="mutFlag" />
+		<result column="MUT_FUNC" property="mutFunc" />
+		<result column="DICT_KEY" property="dictKey" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATOR" property="creator" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATOR" property="updator" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="ratMFct_Column_List">
+		 ID as "id", 
+		 MDL_CD, 
+		 MDL_VER, 
+		 LVL_NO, 
+		 FCT_LVL, 
+		 FCT_CD, 
+		 FCT_NM, 
+		 FCT_TP, 
+		 FCT_KD, 
+		 SUP_LVL, 
+		 CONFIG, 
+		 STATUS, 
+		 WEIGHT_VAL, 
+		 WARN_VAL, 
+		 DFT_VAL, 
+		 REMARK, 
+		 IND_KIND, 
+		 IND_ITEM, 
+		 MUT_FLAG, 
+		 MUT_FUNC, 
+		 DICT_KEY, 
+		 CREATE_TIME, 
+		 CREATOR, 
+		 UPDATE_TIME, 
+		 UPDATOR
+	</sql>
+    <select id="findAllRatMFct" resultType="com.aml.cRat.entity.RatMFct">
+	      select 
+	     	<include refid="ratMFct_Column_List" />
+	      from T_CRA_MDL_FCTOR
+	      where 1 = 1 
+	      <if test="id != null and id != ''">
+    		and ID = #{id}
+	    </if>
+    	  order by UPDATE_TIME desc 
+    </select>
+     <insert id="saveRatMFct" parameterType="com.aml.cRat.entity.RatMFct">
+	    INSERT INTO T_CRA_MDL_FCTOR (
+	    	 ID,
+			 MDL_CD, 
+			 MDL_VER, 
+			 LVL_NO, 
+			 FCT_LVL, 
+			 FCT_CD, 
+			 FCT_NM, 
+			 FCT_TP, 
+			 FCT_KD, 
+			 SUP_LVL, 
+			 CONFIG, 
+			 CREATE_TIME, 
+			 CREATOR, 
+			 UPDATE_TIME, 
+			 UPDATOR)
+		VALUES (
+			null,
+			#{mdlCd},
+			#{mdlVer},
+			#{lvlNo},
+			#{fctLvl},
+			#{fctCd},
+			#{fctNm},
+			#{fctTp},
+			#{fctKd},
+			#{supLvl},
+			#{config},
+			#{createTime},
+			#{creator},
+			#{updateTime},
+			#{updator}
+		);
+    </insert>
+    <update id="updateRatMFct" parameterType="com.aml.cRat.entity.RatMFct">
+	    update T_CRA_MDL_FCTOR 
+	    SET
+	    	MDL_CD=#{mdlCd},
+			MDL_VER=#{mdlVer},
+			LVL_NO=#{lvlNo},
+			FCT_LVL=#{fctLvl},
+			FCT_CD=#{fctCd},
+			FCT_NM=#{fctNm},
+			FCT_TP=#{fctTp},
+			FCT_KD=#{fctKd},
+			SUP_LVL=#{supLvl},
+			CONFIG=#{config},
+			UPDATE_TIME=#{updateTime},
+			UPDATOR=#{updator}
+		WHERE ID=#{id}
+    </update>
+    <delete id="deleteRatMFct" parameterType="com.aml.cRat.entity.RatMFct">
+	    delete from T_CRA_MDL_FCTOR 
+		WHERE ID=#{id}
+    </delete>
+</mapper>

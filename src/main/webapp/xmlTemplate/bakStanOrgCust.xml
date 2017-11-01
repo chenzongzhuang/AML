@@ -1,0 +1,13 @@
+<xml>
+<row><column colspan="2" css="font-size:15;border:none;font-weight:bold;text-align:center;">机构客户</column></row>
+<row>
+<columnTitle title="序号"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">id</columnTitle>
+<columnTitle title="客户号"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">busiRegNo</columnTitle>
+<columnTitle title="学历"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">education</columnTitle>
+<columnTitle title="婚姻状况"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">marriage</columnTitle>
+<columnTitle title="客户名称"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">ctnm</columnTitle>
+<columnTitle title="职业"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">ctvc</columnTitle>
+<columnTitle title="风险等级"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">riskLevel</columnTitle>
+<columnTitle title="开户日期"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">rgdt</columnTitle>
+</row>
+</xml>

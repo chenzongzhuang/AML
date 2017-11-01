@@ -1,0 +1,168 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+@layout("/common/_container.html"){	
+		<!-- 右侧具体内容栏目 -->
+		<form id="ratRatMFctExcelForm">
+		</form>
+			<div id="rightContent">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" >
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="col-sm-7">
+									<span style="font-weight: bolder;">▏评级模型因子</span>
+								</div>
+				        		<a href="#" class="btn btn-default" id="ratMFct_add">
+						           <span class="glyphicon glyphicon-check" ></span>新增
+						        </a>
+						        <a href="/cRat/ratMSetMod" class="btn btn-default" id="ratMFctMod">
+						           <span class="glyphicon glyphicon-list-al"></span>因子设置
+						        </a>
+				        		<a href="#" class="btn btn-default" id="ratMFctExcel">
+						           <span class="glyphicon glyphicon-new-window"></span>导出
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-unchecked"></span>显示
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-sort-by-attributes"></span>排序
+						        </a>
+						        <a href="/cRat/ratMSet.html" class="btn btn-default">
+						           <span class="glyphicon glyphicon-new-window"></span>返回
+						        </a>
+						    </div>
+						</div>
+						<table id="ratMFctTableInit"></table>
+					</div>
+				</div>
+			</div>
+			<!--弹出添加用户Modal窗口-->
+			<div class="modal fade" id="addRatMFct" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">新增模型因子</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal" id="addRatMFctFrom">
+									<div class="form-group ">
+										<label for="account" class="col-xs-4 control-label">模型代码：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi" name="mdlCd"  id="mdlCd" placeholder="">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-4 control-label">模型版本：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="mdlVer" id="mdlVer" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label">级别层数：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="lvlNo" name="lvlNo" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label">级别编号：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="fctLvl" name="fctLvl" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 因子代码：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="fctCd" name="fctCd" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 因子名称：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="fctNm" name="fctNm" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 因子类型：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="fctTp" name="fctTp" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 因子值类型：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="fctKd" name="fctKd" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 父级别编号：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="supLvl" name="supLvl" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 计算公式：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="config" name="config" placeholder="">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-green" id="saveRatMFct">保 存</button>
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!--弹出修改用户Modal窗口-->
+			<div class="modal fade" id="reviseRatMFct" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+			    <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                <h4 class="modal-title" id="gridSystemModalLabel">修改评级模型因子</h4>
+			            </div>
+			            <div class="modal-body">
+			                <div class="container-fluid">
+			                    <form class="form-horizontal" id="editForm">
+			                    </form>
+			                </div>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+			                <button type="button" class="btn btn-xs btn-green" id="editRatMFct">保 存</button>
+			            </div>
+			        </div>
+	        <!-- /.modal-content -->
+		    	</div>
+		    </div>
+		    	<!--弹出删除用户警告窗口-->
+			<div class="modal fade" id="deleteRatMFct" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="2gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								确定要删除该条评级模型因子？删除后不可恢复！
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="delId">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn  btn-xs btn-danger" onclick="delRatMFctSubmit()">确 定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<script src="${ctxPath}/static/modular/system/cRat/RatMFct.js"></script>
+@}

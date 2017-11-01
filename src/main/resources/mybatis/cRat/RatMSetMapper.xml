@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.RatMSetMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="ratMSetResultMap" type="com.aml.cRat.entity.RatMSet">
+		<id column="MDL_CD" property="mdlCd" />
+		<result column="MDL_NM" property="mdlNm" />
+		<result column="MDL_VR" property="mdlVr" />
+		<result column="MDL_SC" property="mdlSc" />
+		<result column="STATUS" property="status" />
+		<result column="REMARK" property="remark" />
+		<result column="MDL_DIR" property="mdlDir" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATOR" property="creator" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATOR" property="updator" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="ratMSet_Column_List">
+		@rownum:=@rownum+1 as id,
+		MDL_CD,
+		MDL_NM,
+		MDL_VR,
+		MDL_SC,
+		STATUS,
+		REMARK,
+		MDL_DIR,
+		CREATE_TIME,
+		CREATOR,
+		UPDATE_TIME,
+		UPDATOR
+	</sql>
+    <select id="findAllRatMSet" resultType="com.aml.cRat.entity.RatMSet">
+	      select 
+	     	<include refid="ratMSet_Column_List" />
+	      from T_CRA_MDL_MODEL,(select @rownum:=0) t
+	       where 1=1 
+	    <if test="mdlCd != null and mdlCd != ''">
+    		and MDL_CD = #{mdlCd}
+	    </if>
+    	  order by UPDATE_TIME desc 
+    </select>
+     <insert id="saveRatMSet" parameterType="com.aml.cRat.entity.RatMSet">
+	    INSERT INTO T_CRA_MDL_MODEL (
+	    	MDL_CD,
+			MDL_NM,
+			MDL_VR,
+			MDL_SC,
+			STATUS,
+			REMARK,
+			CREATE_TIME,
+			CREATOR,
+			UPDATE_TIME,
+			UPDATOR)
+		VALUES (
+			#{mdlCd},
+			#{mdlNm},
+			#{mdlVr},
+			#{mdlSc},
+			#{status},
+			#{remark},
+			#{createTime},
+			#{creator},
+			#{updateTime},
+			#{updator}
+		);
+    </insert>
+    <update id="updateRatMSet" parameterType="com.aml.cRat.entity.RatMSet">
+	    update T_CRA_MDL_MODEL 
+	    SET
+	    	MDL_CD=#{mdlCd},
+			MDL_NM=#{mdlNm},
+			MDL_VR=#{mdlVr},
+			MDL_SC=#{mdlSc},
+			STATUS=#{status},
+			REMARK=#{remark},
+			UPDATE_TIME=#{updateTime},
+			UPDATOR=#{updator}
+		WHERE MDL_CD=#{mdlCd}
+    </update>
+    <delete id="deleteRatMSet" parameterType="com.aml.cRat.entity.RatMSet">
+	    delete from T_CRA_MDL_MODEL 
+		WHERE MDL_CD=#{mdlCd}
+    </delete>
+</mapper>

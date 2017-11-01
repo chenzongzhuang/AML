@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.TargetMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.sys.entity.TargetEntity">
+		<id column="target_id" property="target_id" />
+		<result column="target_no" property="target_no" />
+		<result column="target_desc" property="target_desc" />
+		<result column="target_properties" property="target_properties" />
+		<result column="target_count_fun" property="target_count_fun" />
+		<result column="target_count_con" property="target_count_con" />
+		<result column="target_count_properties" property="target_count_properties" />
+		<result column="target_create_date" property="target_create_date" />
+		<result column="target_enable" property="target_enable" />
+		<result column="target_column1" property="target_column1" />
+		<result column="target_name" property="target_name" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+ 
+	<sql id="Base_Column_List">
+		target_id, target_no, target_desc, target_properties, target_count_fun,  target_count_properties,target_name
+	</sql>
+    
+    
+	
+    
+	<select id="findTarget" resultType="com.aml.sys.entity.TargetEntity">
+	    select 
+	   	<include refid="Base_Column_List" />
+	    from Target_Entity
+	    where 1=1
+		<if test="targetNo != null and targetNo != ''">
+			and target_no like CONCAT('%','${targetNo}','%')
+		</if>
+		<if test="targetName != null and targetName != ''">
+			and target_name like CONCAT('%', '${targetName}','%')
+		</if>
+		order by target_create_date desc   limit #{currentPage},#{currentReslut}
+	</select>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	<insert id="addTarget">
+		insert into Target_Entity(target_id,target_no,target_desc,target_properties,target_count_fun,target_count_con,target_count_properties,target_create_date,target_enable,target_column1,target_name)
+		values (#{targetId},#{targetNo},#{targetDesc},#{targetProperties},#{targetCountFun},#{targetCountCon},#{targetCountProperties},now(),'Y',#{targetColumn1},#{targetName})
+	</insert>
+	
+
+<!-- 	<select id="qyeryUserTarget" resultType="com.aml.sys.entity.User_target"> -->
+<!-- 		select id ,name from user_target -->
+<!-- 	</select> -->
+	
+	<delete id="deleteTargetByTargetId">
+	   	delete  from target_entity where target_id = #{targetId}
+	</delete>
+	   
+	 <update id="updateTargetByTargetId">
+	   	update target_entity set target_no = #{targetNo}, target_desc =#{targetDesc},target_properties =#{targetProperties} ,target_count_fun=#{targetCountFun} ,target_count_con =#{targetCountCon},target_count_properties  =#{targetCountProperties} ,target_name  =#{targetName} where target_id =#{targetId}
+	</update>
+	
+
+</mapper>

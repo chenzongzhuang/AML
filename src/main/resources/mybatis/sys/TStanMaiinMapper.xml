@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.TStanMaiinMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.sys.entity.TStanMaiin">
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		main_id, main_type, main_en, main_in, main_cn,  main_cn_full,main_en_name,main_en_full
+	</sql>
+    
+    
+	
+    
+	<select id="findTarget" resultType="com.aml.sys.entity.TStanMaiin">
+	    select 
+	   	<include refid="Base_Column_List" />
+	    from t_stan_maiin
+	    where 1 =1 
+	        
+	        and main_type = #{mainType} 
+		<if test="mainEn != null and mainEn != ''">
+			and main_en like CONCAT('%','${mainEn}','%')
+		</if>
+		<if test="mainCn != null and mainCn != ''">
+			and main_cn like CONCAT('%', '${mainCn}','%')
+		</if>
+		<if test="mainIn != null and mainIn != ''">
+			and main_in like CONCAT('%', '${mainIn}','%')
+		</if>
+		<if test="mainEnName != null and mainEnName != ''">
+			and main_en_name like CONCAT('%', '${mainEnName}','%')
+		</if>
+		order by main_en desc   limit #{currentPage},#{currentReslut}
+	</select>
+	  
+	<insert id="addTarget">
+		insert into t_stan_maiin(main_id,main_type,main_en,main_in,main_cn,main_cn_full,main_en_name,main_en_full)
+		values (#{mainId},#{mainType},#{mainEn},#{mainIn},#{mainCn},#{mainCnFull},#{mainEnName},#{mainEnFull})
+	</insert>
+	
+	<select id="qyeryUserTarget" resultType="com.aml.sys.entity.TStanMaiin">
+		select 	<include refid="Base_Column_List" /> from t_stan_maiin  where 1 =1 
+	        
+	        and main_type = #{mainType} 
+		<if test="mainEn != null and mainEn != ''">
+			and main_en like CONCAT('%','${mainEn}','%')
+		</if>
+		<if test="mainCn != null and mainCn != ''">
+			and main_cn like CONCAT('%', '${mainCn}','%')
+		</if>
+		<if test="mainIn != null and mainIn != ''">
+			and main_in like CONCAT('%', '${mainIn}','%')
+		</if>
+		<if test="mainEnName != null and mainEnName != ''">
+			and main_en_name like CONCAT('%', '${mainEnName}','%')
+		</if>
+		order by main_en desc
+	</select>
+	
+	<delete id="deleteTargetByTargetId">
+	   	delete  from t_stan_maiin where main_id = #{mainId}
+	</delete>
+	   
+	 <update id="updateTargetByTargetId">
+	   	update target_entity set main_en =#{mainEn},main_in =#{mainIn} ,main_cn=#{mainCn} ,main_cn_full =#{mainCnFull},main_en_name  =#{mainEnName} ,main_en_full  =#{mainEnFull} where main_id =#{mainId}
+	</update>
+	
+
+</mapper>
+

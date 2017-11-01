@@ -1,0 +1,121 @@
+@layout("/common/_container.html"){
+	<!-- 右侧具体内容栏目 -->
+	<!-- 右侧具体内容栏目 -->
+	<div class="">
+		<div class="col-sm-3" style="padding-top: 9px;">
+			<span style="font-weight: bolder;">| ${ctnm}</span>
+		</div>
+		<div style="padding-right: 5px;text-align: right;">
+			<a href="#" class="btn btn-default btn-white">
+	           <span class="glyphicon glyphicon-plus "></span>设为可疑
+	        </a>
+			<a href="#" class="btn btn-default btn-white">
+	           <span class="glyphicon glyphicon-check"></span>调整评级
+	        </a>
+	        <a href="#" class="btn btn-default btn-white">
+	           <span class="glyphicon glyphicon-list-alt"></span>加入黑名单
+	        </a>
+        </div>
+	</div>
+	<div id="rightContent" style="overflow:auto;">
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<!--个人户客模块-->
+			<div role="tabpanel" class="tab-pane active">
+				<form id="listForm" name="listForm" method="post" role="form">
+					<div class="panel panel-default">
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">客户号:</label>
+							<a class="col-sm-4">
+								${TStanPerson.busiRegNo}
+							</a>
+							<label class="col-sm-2 control-label">客户姓名:</label>
+							<a class="col-sm-4">
+								${TStanPerson.ctnm}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">性别:</label>
+							<a class="col-sm-4">
+								${TStanPerson.sex}
+							</a>
+							<label class="col-sm-2 control-label">国籍:</label>
+							<a class="col-sm-4">
+								${TStanPerson.country}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">出生日期:</label>
+							<a class="col-sm-4">
+								${TStanPerson.birthday}
+							</a>
+							<label class="col-sm-2 control-label">名族:</label>
+							<a class="col-sm-4">
+								${TStanPerson.nation}
+							</a>
+						</div>
+						
+						
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">职业:</label>
+							<a class="col-sm-4">
+								${TStanPerson.ctvc}
+							</a>
+							<label class="col-sm-2 control-label">电子邮件:</label>
+							<a class="col-sm-4">
+								${TStanPerson.ceml}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">学历:</label>
+							<a class="col-sm-4">
+								${TStanPerson.education}
+							</a>
+							<label class="col-sm-2 control-label">婚姻状况:</label>
+							<a class="col-sm-4">
+								${TStanPerson.marriage}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">特约商户编码:</label>
+							<a class="col-sm-4">
+								${TStanPerson.smid}
+							</a>
+							<label class="col-sm-2 control-label">分支机构:</label>
+							<a class="col-sm-4">
+								${TStanPerson.merUnit}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group" style="margin:0 auto">
+							<label class="col-sm-2 control-label">开户日期日期:</label>
+							<a class="col-sm-4">
+								${TStanPerson.rgdt}
+							</a>
+							<label class="col-sm-2 control-label">销户日期:</label>
+							<a class="col-sm-4">
+								${TStanPerson.clsDt}
+							</a>
+						</div>
+						
+						<div class="panel-body form-group">
+						     <div >
+					            <div class="col-xs-5">
+								</div>
+					            <a href="#" class="btn btn-default btn-primary" id=search_btn1>
+						           <span></span>修改
+						        </a>
+					         </div>
+				         </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+@}

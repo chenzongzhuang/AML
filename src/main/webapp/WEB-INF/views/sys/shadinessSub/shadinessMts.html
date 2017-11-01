@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>历史主体及交易</title>
+
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<link href="${ctxPath}/static/css/bootstrap.min.css" rel="stylesheet" />
+<link
+	href="${ctxPath}/static/css/plugins/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
+<link href="${ctxPath}/static/css/animate.css" rel="stylesheet">
+<link href="${ctxPath}/static/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/validate/bootstrapValidator.min.css" />
+<link rel="stylesheet" href="${ctxPath}/static/css/style.min.css" />
+
+<link
+	href="${ctxPath}/static/css/plugins/jquery-confirm/jquery-confirm.css"
+	rel="stylesheet">
+
+<link
+	href="${ctxPath}/static/css/plugins/bootstrap-select/bootstrap-select.css"
+	rel="stylesheet">
+<link href="${ctxPath}/static/css/plugins/select2/select2.css"
+	rel="stylesheet">
+
+
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/acemts/ace-skins.min.css" />
+<link href="${ctxPath}/static/css/plugins/datapicker/datepicker3.css"
+	rel="stylesheet">
+
+
+<script src="${ctxPath}/static/jquery/jquery-1.11.3.min.js"
+	type="text/javascript"></script>
+
+
+<script src="${ctxPath}/static/js/jquery.min.js"></script>
+<script src="${ctxPath}/static/js/bootstrap.min.js"></script>
+
+<script
+	src="${ctxPath}/static/js/plugins/validate/bootstrapValidator.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-ui-custom.min.js"></script>
+
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+
+<script
+	src="${ctxPath}/static/js/plugins/jquery-confirm/jquery-confirm.js"></script>
+
+<script
+	src="${ctxPath}/static/js/plugins/bootstrap-select/bootstrap-select.js"></script>
+
+<script src="${ctxPath}/static/js/plugins/select2/select2.min.js"></script>
+
+<script
+	src="${ctxPath}/static/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<script src="${ctxPath}/static/js/plugins/fullcalendar/moment.min.js"></script>
+
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/jquery-ui-1.10.3.custom/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/jquery-ui-1.10.3.full/jquery-ui-1.10.3.full.min.css" />
+
+<script
+	src="${ctxPath}/static/js/plugins/jquery.ui.touch-punch/jquery.ui.touch-punch.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/font-awesome/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/ace/ace.min.css" />
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/ace-rtl/ace-rtl.min.css" />
+<link rel="stylesheet"
+	href="${ctxPath}/static/css/plugins/acemts/ace-skins.min.css" />
+
+<style>
+.back:hover {
+	cursor: pointer;
+}
+
+.fixed-table-toolbar .btn-group>.btn-group:last-child>.btn {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+label {
+	width: 100px;
+}
+
+.popup_de {
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+.bbox {
+	display: -webkit-box;
+	/* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+	display: -moz-box; /* 老版本语法: Firefox (buggy) */
+	display: -ms-flexbox; /* 混合版本语法: IE 10 */
+	display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+	display: -moz-flex;
+	display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+}
+
+.bbox.xycenter {
+	-moz-box-pack: center; /*Firefox*/
+	-webkit-box-pack: center; /*Safari,Opera,Chrome*/
+	box-pack: center;
+	-moz-justify-content: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-moz-box-align: center; /*Firefox*/
+	-webkit-box-align: center; /*Safari,Opera,Chrome*/
+	box-align: center;
+	-moz-align-items: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.popup_de .popup_box {
+	width: 300px;
+	height: 150px;
+	font-family: '微软雅黑';
+	background-color: #fff;
+	border-radius: 5px;
+	color: #333;
+}
+
+.popup_de .popup_btn {
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	border-radius: 3px;
+	border: 1px solid #1ab394;
+	font-size: 15px;
+	text-align: center;
+	line-height: 30px;
+	margin-right: 15px;
+	cursor: pointer;
+}
+
+.popup_de .show_msg {
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.popup_de .popup_close {
+	width: 30px;
+	height: 30px;
+	font-size: 25px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	float: right;
+	border-top-right-radius: 5px;
+	line-height: 30px;
+}
+
+.popup_de .popup_close:hover {
+	background-color: #1ab394;
+	color: #fff;
+}
+
+.popup_de .btn_submit {
+	background-color: #1ab394;
+	color: #fff;
+}
+
+.popup_de .btn_box {
+	text-align: center;
+}
+</style>
+
+
+</head>
+
+<body>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">排除的主体历史</a></li>
+
+			<li><a href="#tabs-2">排除的交易历史</a></li>
+
+		</ul>
+
+		<div id="tabs-1" class="tab-pane active">
+			<div class="tableBody">
+				<div class="panel panel-default">
+					<div class="panel-heading">查询条件</div>
+					<div class="panel-body form-group" style="margin-bottom:0px;">
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">主体名称：</label>
+
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="subName"
+								id=" subName" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">证件号码：</label>
+
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="idNo" id="idNo" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">预警规则：</label>
+						<div class="col-sm-2">
+
+							<input type="text" class="form-control" name="earlyWarRules"
+								id="earlyWarRules" />
+						</div>
+						
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">事由类别：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<select class="js-states form-control" id="causecCategory ">
+							</select>
+						</div>
+						
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">分支机构：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<select class="js-states form-control" id="branch ">
+							</select>
+						</div>
+						
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">补录状态：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<select class="js-states form-control" id="makeUpState ">
+							</select>
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">预警日期：</label>
+						<div class="input-daterange input-group" id="input-daterange"
+							style="margin-top: 2.6%">
+							<input type="text" class="input-sm form-control mts"
+								name="startEsseCreateDate" id="startEsseCreateDate" /><span
+								class="input-group-addon"> <i class="fa fa-calendar"></i>
+							</span> <span class="input-group-addon">-</span> <input type="text"
+								class="input-sm form-control mts" name="endEsseCreateDate"
+								id="endEsseCreateDate" /><span class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</span>
+						</div>
+
+						<div class="col-sm-2 pull-right">
+							<button class="btn btn-primary" id="search_btn">查询</button>
+						</div>
+					</div>
+				</div>
+				<table id="mytab" class="table table-hover"></table>
+				<div id="toolbar" class="btn-group pull-right columns">
+					<!-- <button id="btn_1" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>生成报告
+					</button>
+					<button id="btn_2" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>排除可疑
+					</button>
+					<button id="btn_3" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>提前补录
+					</button>
+					<button id="btn_4" type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>模板下载 -->
+					</button>
+				</div>
+
+				<div class="modal fade"
+					style="width:100%;position: absolute;top:10px" id="Modal1"
+					tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="ibox-title">
+									<h5>确认可疑</h5>
+								</div>
+								<div class="ibox-content">
+									<form id="addForm" method="post" class="form-horizontal"
+										action="target.php">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">可疑类别</label>
+											<div class="col-sm-10">
+												<select class="js-states form-control" id="categories "
+													name="categories " style="width: 100%">
+												</select>
+											</div>
+										</div>
+										<div class="hr-line-dashed"></div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">事由说明</label>
+											<div class="col-sm-10">
+
+												<select class="js-states form-control" id="causeExp"
+													name="causeExp" style="width: 100%">
+												</select>
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<div class="col-sm-2 col-sm-offset-2">
+												<button type="button" class="btn btn-primary btn-block"
+													id="add_saveBtn2">保存</button>
+											</div>
+											<div class="col-sm-2 col-sm-offset-1">
+												<button type="button" class="btn btn-default btn-block"
+													id="add_backBtn2">取消</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="modal fade"
+					style="width:100%;position: absolute;top:10px" id="Modal3"
+					tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-body">
+								<div class="ibox-title">
+									<h5>全部确认可疑</h5>
+								</div>
+								<div class="ibox-content">
+									<form id="addForm" method="post" class="form-horizontal"
+										action="target.php">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">可疑类别</label>
+											<div class="col-sm-10">
+												<select class="js-states form-control" id="categoriesSimp "
+													name="categories " style="width: 100%">
+												</select>
+											</div>
+										</div>
+										<div class="hr-line-dashed"></div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">事由说明</label>
+											<div class="col-sm-10">
+												<textarea rows="30" cols="10" id="causeExpSimp" name="causeExp"></textarea>
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<div class="col-sm-2 col-sm-offset-2">
+												<button type="button" class="btn btn-primary btn-block"
+													id="add_saveBtn1">保存</button>
+											</div>
+											<div class="col-sm-2 col-sm-offset-1">
+												<button type="button" class="btn btn-default btn-block"
+													id="add_backBtn1">取消</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="tabs-2">
+			<div class="tableBody">
+				<div class="panel panel-default">
+					<div class="panel-heading">查询条件</div>
+					<div class="panel-body form-group" style="margin-bottom:0px;">
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">业务标识号：</label>
+
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="workNo"
+								id=" workNo" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">主体名称：</label>
+
+						<div class="col-sm-2">
+							<input type="text" class="form-control" name="subName"
+								id="subNameTrd" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:5px">证件号码：</label>
+						<div class="col-sm-2">
+
+							<input type="text" class="form-control" name="idNo" id="idNoTrd" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">预警规则：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<input type="text" class="form-control" name="earlyWarRules"
+								id="earlyWarRulesTrd" />
+
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">交易账号：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<input type="text" class="form-control" name="mts"
+								id="mts" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">银行账号：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<input type="text" class="form-control" name="bankAccount"
+								id="bankAccountTrd" />
+						</div>
+
+						<label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">分支机构：</label>
+
+						<div class="col-sm-2" style="margin-top: 10px">
+							<select class="js-states form-control" id="branchTrd ">
+							</select>
+						</div>
+						 <label class="col-sm-2 control-label"
+							style="text-align: right; margin-top:10px">交易金额：</label>
+						<div class="col-sm-1" style=" display:inline; margin-top:10px">
+							<input type="text" class="input-sm form-control"
+								name="starAmount" id="starAmount" />
+						</div>
+						
+						<div class="col-sm-1" style=" display:inline; margin-top:10px">
+							<input type="text" class="input-sm form-control"
+								name="endAmount" id="endAmount" />
+						</div>
+
+						<div style=" display:inline">
+							<label class="col-sm-2 control-label"
+								style="text-align: right; margin-top:10px">预警日期：</label>
+							<div class="input-daterange input-group" id="input-daterange"
+								style="margin-top: 2.6%">
+								<input type="text" class="input-sm form-control mts"
+									name="startEsseCreateDate" id="startEsseCreateDateTrd" /><span
+									class="input-group-addon"> <i class="fa fa-calendar"></i>
+								</span> <span class="input-group-addon">-</span> <input type="text"
+									class="input-sm form-control mts" name="endEsseCreateDate"
+									id="endEsseCreateDateTrd" /><span class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+
+
+						<div style="margin-left: 1000px; display: inline;">
+							<label class="col-sm-2 control-label"
+								style="text-align: right; margin-top:10px">交易日期：</label>
+							<div class="input-daterange input-group" id="input-daterange">
+								<input type="text" class="input-sm form-control mts"
+									name="startEsseCreateDate" id="startEsseBriDate" /><span
+									class="input-group-addon"> <i class="fa fa-calendar"></i>
+								</span> <span class="input-group-addon">-</span> <input type="text"
+									class="input-sm form-control mts" name="endEsseBriDate"
+									id="endEsseBriDate" /><span class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+
+
+
+
+
+						<div class="col-sm-2 pull-right">
+							<button class="btn btn-primary" id="search_btn_trd">查询</button>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+			<table id="mytabTrd" class="table table-hover"></table>
+			<div id="toolbarTrd" class="btn-group pull-right columns">
+				<button id="btn_trd_1" type="button" class="btn btn-default">
+			<!-- 		<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>生成报告
+				</button>
+				<button id="btn_trd_2" type="button" class="btn btn-default">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>排除可疑
+				</button>
+				<button id="btn_trd_3" type="button" class="btn btn-default">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>提请补录
+				</button>
+				<button id="btn_trd_4" type="button" class="btn btn-default">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>模板下载
+				</button> -->
+			</div>
+
+			<div class="modal fade"
+				style="width:100%;position: absolute;top:10px" id="Modal1"
+				tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="ibox-title">
+								<h5>确认可疑</h5>
+							</div>
+							<div class="ibox-content">
+								<form id="addForm" method="post" class="form-horizontal"
+									action="target.php">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">可疑类别</label>
+										<div class="col-sm-10">
+											<select class="js-states form-control" id="categoriesTrd "
+												name="categories " style="width: 100%">
+											</select>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">事由说明</label>
+										<div class="col-sm-10">
+											<div class="col-sm-10">
+												<textarea rows="10" cols="10" id="causeExpTrd" name="causeExp"></textarea>
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<div class="col-sm-2 col-sm-offset-2">
+											<button type="button" class="btn btn-primary btn-block"
+												id="add_saveBtn_trd2">保存</button>
+										</div>
+										<div class="col-sm-2 col-sm-offset-1">
+											<button type="button" class="btn btn-default btn-block"
+												id="add_backBtn_trd2">取消</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal fade"
+				style="width:100%;position: absolute;top:10px" id="Modal3"
+				tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="ibox-title">
+								<h5>全部确认可疑</h5>
+							</div>
+							<div class="ibox-content">
+								<form id="addForm" method="post" class="form-horizontal"
+									action="target.php">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">可疑类别</label>
+										<div class="col-sm-10">
+											<select class="js-states form-control" id="categoriesSimp "
+												name="categories " style="width: 100%">
+											</select>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">事由说明</label>
+										<div class="col-sm-10">
+											
+											<textarea rows="30" cols="10" id="causeExpSimp" name="causeExp"></textarea>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<div class="col-sm-2 col-sm-offset-2">
+											<button type="button" class="btn btn-primary btn-block"
+												id="add_saveBtn_trd1">保存</button>
+										</div>
+										<div class="col-sm-2 col-sm-offset-1">
+											<button type="button" class="btn btn-default btn-block"
+												id="add_backBtn_trd1">取消</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<script type="text/javascript">
+		$( "#tabs" ).tabs();
+		//getLayerLoad("categories","CATEGORIES");
+		$(function(){
+		$(".mts").datepicker({
+            language: "zh-CN",
+            autoclose: true,//选中之后自动隐藏日期选择框
+            clearBtn: true,//清除按钮
+            todayBtn: true,//今日按钮
+            format: "yyyy-mm-dd"//日期格式
+        });
+
+
+	//根据窗口调整表格高度
+    $(window).resize(function() {
+        $("'#mytab").bootstrapTable('resetView', {
+            height: tableHeight()
+        })
+    })
+    
+    //筛选主体
+    $("#mytab").bootstrapTable({
+    	method: 'post',
+    	contentType: "application/x-www-form-urlencoded",
+    	url:"/earlyWarning/ruler/FindTStanAreaRoll",
+    	height:tableHeight(),//高度调整
+    	toolbar: "#toolbar",
+    	dataType: "json",
+    	striped: true, //是否显示行间隔色
+    	/* dataField: "res", */
+    	pageNumber: 1, //初始化加载第一页，默认第一页
+    	pagination:true,//是否分页
+    	queryParamsType:"limit",
+    	idField: "areaRollId",
+    	queryParams:queryParams,
+    	sidePagination:"server",
+    	pageSize:10,//单页记录数
+    	pageList:[5,10,20,30],//分页步进值
+    	showRefresh:true	,//刷新按钮
+    	showColumns:true,
+    	showFooter:true,
+    	showPaginationSwitch:true,
+    	clickToSelect: true,//是否启用点击选中行
+    	toolbarAlign:"right",
+    	buttonsAlign:"right",//按钮对齐方式
+    	toolbar:"#toolbar",//指定工作栏
+        smartDisplay: false,//智能显示分页按钮
+   		paginationPreText: "上一页",
+    	paginationNextText: "下一页",
+    	showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+		cardView: false, 
+
+    	columns:[
+        	{
+        		title:"全选",
+        		field:'select',
+        		checkbox:true,
+        		width:25,
+        		align:'center',
+        		valign:'middle'
+        	},
+        	{field: '序号', title: '序号',
+                formatter: function (value, row, index) {
+                    return index+1;
+            }},
+        	{
+        		title:"ID",
+        		field:"'esseId'",
+        		visible:false
+        	},
+        	{
+        		title:"预警日期",
+        		field:"warningDate",
+        		sortable:true
+        	},
+        	{
+        		title:"预警规则",
+        		field:"earlyWarRules",
+        		sortable:true
+        	},
+        	{
+        		title:"主体名称",
+        		field:"subName",
+        	},
+        	{
+        		title:"证件号码",
+        		field:"idNo"
+        	},
+        	{
+        		title:"待约商户编号",
+        		field:"pMertNumr",
+	        	sortable:true
+        	},
+        	{
+        		title:"交易金额(收/付)",
+        		field:"traAmo",
+        		sortable:true
+        	},
+        	{
+        		title:"交易笔数(收/付)",
+        		field:"numOfTran",
+        		sortable:true
+        	},
+        	{
+        		title:"风险等级",
+        		field:"riskGrade",
+        	},
+        	{
+        		title:"综合评分",
+        		field:"compScore"
+        	},
+        	{
+        		title:"事由说明",
+        		field:"causeExp"
+        	},
+        	{
+        		title:"详情",
+        		field:"details"
+        	}
+    	],
+    	locale:'zh-CN',//中文支持,
+    	formatLoadingMessage: function () {
+		    			return "请稍等，正在加载中...";
+		    		},
+		    		formatNoMatches: function () {  //没有匹配的结果
+		    			return "无符合条件的记录";
+		    		},
+    	responseHandler: function(res) {
+			               return {
+			                    "total": res.data.records,//总页数
+			                    "rows": res.data.rows   //数据
+			                 };
+		    				
+		            },
+    })
+    
+    //筛选交易
+    $("#mytabTrd").bootstrapTable({
+    	method: 'post',
+    	contentType: "application/x-www-form-urlencoded",
+    	url:"/earlyWarning/ruler/FindTStanAreaRoll",
+    	height:tableHeight(),//高度调整
+    	toolbar: "#toolbarTrd",
+    	dataType: "json",
+    	striped: true, //是否显示行间隔色
+    	/* dataField: "res", */
+    	pageNumber: 1, //初始化加载第一页，默认第一页
+    	pagination:true,//是否分页
+    	queryParamsType:"limit",
+    	idField: "areaRollId",
+    	queryParams:queryParam,
+    	sidePagination:"server",
+    	pageSize:10,//单页记录数
+    	pageList:[5,10,20,30],//分页步进值
+    	showRefresh:true	,//刷新按钮
+    	showColumns:true,
+    	showFooter:true,
+    	showPaginationSwitch:true,
+    	clickToSelect: true,//是否启用点击选中行
+    	toolbarAlign:"right",
+    	buttonsAlign:"right",//按钮对齐方式
+    	toolbar:"#toolbarTrd",//指定工作栏
+        smartDisplay: false,//智能显示分页按钮
+   		paginationPreText: "上一页",
+    	paginationNextText: "下一页",
+    	showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+		cardView: false, 
+
+    	columns:[
+        	{
+        		title:"全选",
+        		field:'select',
+        		checkbox:true,
+        		width:25,
+        		align:'center',
+        		valign:'middle'
+        	},
+        	{field: '序号', title: '序号',
+                formatter: function (value, row, index) {
+                    return index+1;
+            }},
+        	{
+        		title:"ID",
+        		field:"'esseId'",
+        		visible:false
+        	},
+        	{
+        		title:"预警日期",
+        		field:"warningDate",
+        		sortable:true
+        	},
+        	{
+        		title:"业务标识号",
+        		field:"workNo",
+        		sortable:true
+        	},
+        	{
+        		title:"预警规则",
+        		field:"earlyWarRules",
+        	},
+        	{
+        		title:"主体名称",
+        		field:"subName"
+        	},
+        	{
+        		title:"证件号码",
+        		field:"idNo",
+	        	sortable:true
+        	},
+        	{
+        		title:"交易时间",
+        		field:"tranDate",
+        		sortable:true
+        	},
+        	{
+        		title:"资金收付标志",
+        		field:"fundMark",
+        		sortable:true
+        	},
+        	{
+        		title:"交易金额",
+        		field:"tranAmount",
+        	},
+        	{
+        		title:"交易对手名称",
+        		field:"counName"
+        	},{
+        		title:"交易对手证件号",
+        		field:"counIdNo",
+        	},
+        	{
+        		title:"交易商品名称",
+        		field:"traCommName"
+        	},{
+        		title:"补录状态",
+        		field:"makeUpState",
+        	},
+        	{
+        		title:"详情",
+        		field:"details"
+        	}
+    	],
+    	locale:'zh-CN',//中文支持,
+    	formatLoadingMessage: function () {
+		    			return "请稍等，正在加载中...";
+		    		},
+		    		formatNoMatches: function () {  //没有匹配的结果
+		    			return "无符合条件的记录";
+		    		},
+    	responseHandler: function(res) {
+			               return {
+			                    "total": res.data.records,//总页数
+			                    "rows": res.data.rows   //数据
+			                 };
+		    				
+		            },
+    })
+    //请求服务数据时所传参数
+    function queryParams(params){
+    	return{
+    		 rows: params.limit,
+    		 page:params.offset+1, 
+    		 subName:$('#subName').val(),
+			 idNo:$('#idNo').val(),
+			 earlyWarRules:$('#earlyWarRules').val(),
+			 branch:$('#branch').val(),
+			 causecCategory:$('#causecCategory').val(),
+			 startEsseCreateDate:$('#startEsseCreateDate').val(),
+			 endEsseCreateDate:$('#endEsseCreateDate').val()
+    	}
+    }
+    
+     function queryParam(params){
+    	return{
+    		 rows: params.limit,
+    		 page:params.offset+1, 
+    		 workNo:$('#workNo').val(),
+    		 subName:$('#subName').val(),
+			 idNo:$('#idNoTrd').val(),
+			 earlyWarRules:$('#earlyWarRulesTrd').val(),
+			 mts:$('#mts').val(),
+			 bankAccount:$('#bankAccount').val(),
+			 branch:$('#branchTrd').val(),
+			 starAmount:$('#starAmount').val(),
+			 endAmount:$('#endAmount').val(),
+			 startEsseCreateDate:$('#startEsseCreateDateTrd').val(),
+			 endEsseCreateDate:$('#endEsseCreateDateTrd').val(),
+			 startEsseBriDate:$('#startEsseBriDate').val(),
+			 endEsseBriDate:$('#endEsseBriDate').val()
+    	}
+    }
+})
+function tableHeight() {
+    return $(window).height() - 140;
+}
+	function getLayerLoad(tcId,lookupType){
+			$.ajax({   
+				 url:"/tool/ruler/findByType?lookupType="+lookupType,
+			     dataType:'json',
+			     data:'',
+			     jsonp:'callback',
+			     async:false,
+			     jsonpCallback:"success_jsonpCallback",
+			     success:function(data){
+			     $("#"+tcId).empty();
+			       $("#"+tcId).append("<option></option>");
+			     $.each(data.data,function(i,o){
+			     var opt="";
+			     opt+="<option value='"+o.lookupEn+"'>"+o.lookupDesc+"</option>";
+			     $("#"+tcId).append(opt);
+			     });
+			    },error:function(){
+			     }
+			});
+   }
+</script>
+	<div style="display:none">
+		<script src='${ctxPath}/static/js/plugins/stat/stat.js'
+			language='JavaScript' charset='gb2312'></script>
+	</div>
+</body>
+</html>
+
+
+

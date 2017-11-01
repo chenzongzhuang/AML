@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.RGMatMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="rGMatResultMap" type="com.aml.cRat.entity.TCraMdlRank">
+		<id column="RKCD" property="rkCd" />
+		<result column="RKNM" property="rkNm" />
+		<result column="MIN_VAL" property="minVal" />
+		<result column="MAX_VAL" property="maxVal" />
+		<result column="RKDS" property="rkds" />
+		<result column="ASCC" property="ascc" />
+		<result column="CTMS" property="ctms" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATOR" property="creator" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATOR" property="updator" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="rGMat_Column_List">
+		@rownum:=@rownum+1 as id,
+		RKCD,
+		RKNM,
+		MIN_VAL,
+		MAX_VAL,
+		RKDS,
+		ASCC,
+		CTMS,
+		CREATE_TIME,
+		CREATOR,
+		UPDATE_TIME,
+		UPDATOR
+	</sql>
+    <select id="findAllRGMat" resultType="com.aml.cRat.entity.TCraMdlRank">
+	      select 
+	     	<include refid="rGMat_Column_List" />
+	      from T_CRA_MDL_RANK,(select @rownum:=0) t
+	       where 1=1 
+	    <if test="rkCd != null and rkCd != ''">
+    		and RKCD = #{rkCd}
+	    </if>
+    	  order by UPDATE_TIME desc 
+    </select>
+    <insert id="saveTCraMdlRank" parameterType="com.aml.cRat.entity.TCraMdlRank">
+	    INSERT INTO T_CRA_MDL_RANK (
+	    	RKCD,
+			RKNM,
+			MIN_VAL,
+			MAX_VAL,
+			RKDS,
+			CTMS,
+			ASCC,
+			CREATE_TIME,
+			CREATOR,
+			UPDATE_TIME,
+			UPDATOR)
+		VALUES (
+			#{rkCd},
+			#{rkNm},
+			#{minVal},
+			#{maxVal},
+			#{rkds},
+			#{ctms},
+			#{ascc},
+			#{createTime},
+			#{creator},
+			#{updateTime},
+			#{updator}
+		);
+    </insert>
+    <update id="updateTCraMdlRank" parameterType="com.aml.cRat.entity.TCraMdlRank">
+	    update T_CRA_MDL_RANK 
+	    SET
+	    	RKCD=#{rkCd},
+			RKNM=#{rkNm},
+			MIN_VAL=#{minVal},
+			MAX_VAL=#{maxVal},
+			RKDS=#{rkds},
+			CTMS=#{ctms},
+			ASCC=#{ascc},
+			UPDATE_TIME=#{updateTime},
+			UPDATOR=#{updator}
+		WHERE RKCD=#{rkCd}
+    </update>
+    <delete id="deleteTCraMdlRank" parameterType="com.aml.cRat.entity.TCraMdlRank">
+	    delete from T_CRA_MDL_RANK 
+		WHERE RKCD=#{rkCd}
+    </delete>
+</mapper>

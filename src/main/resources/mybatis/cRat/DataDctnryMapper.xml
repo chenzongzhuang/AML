@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.DataDctnryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="DataDctnryResultMap" type="com.aml.cRat.entity.DataDctnry">
+		<id column="GRP_CD" property="grpCd" />
+		<result column="MTDT_VAL" property="mtdtVal" />
+		<result column="MTDT_LAN" property="mtdtLan" />
+		<result column="MTDT_NM" property="mtdtNm" />
+		<result column="MTDT_DESC" property="mtdtDesc" />
+		<result column="CRT_TM" property="crtTm" />
+		<result column="CRT_USR_ID" property="crtUsrId" />
+		<result column="UPD_TM" property="updTm" />
+		<result column="UPDTR_USR_ID" property="updUsrId" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="DataDctnry_Column_List">
+		grp_cd,
+		mtdt_val,
+		mtdt_lan,
+		mtdt_nm,
+		mtdt_desc,
+		crt_tm,
+		crt_usr_id,
+		upd_tm,
+		updtr_usr_id
+	</sql>
+    <select id="findAllDataDctnry" resultType="com.aml.cRat.entity.DataDctnry">
+	      select 
+	     	<include refid="DataDctnry_Column_List" />
+	      from aml_data_dctnry
+	      where 1=1 
+	    <if test="grpCd != null and grpCd != ''">
+    		and ( grp_cd = CONCAT('',#{grpCd},''))
+	    </if>
+    </select>
+</mapper>

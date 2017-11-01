@@ -1,0 +1,18 @@
+<xml>
+<row><column colspan="2" css="font-size:15;border:none;font-weight:bold;text-align:center;">个人客户评级-新客户评级</column></row>
+<row>
+<columnTitle title="序号"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">id</columnTitle>
+<columnTitle title="客户号"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">cstId</columnTitle>
+<columnTitle title="客户名称"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">ctNm</columnTitle>
+<columnTitle title="综合评分"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">assc</columnTitle>
+<columnTitle title="系统评级等级"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">fstAutRank</columnTitle>
+<columnTitle title="系统评级时间"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">fstAutTime</columnTitle>
+<columnTitle title="触发评级原因"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">trgDs</columnTitle>
+<columnTitle title="确认评级等级"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">fstManRank</columnTitle>
+<columnTitle title="确认事由类别"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">cfmResKnd</columnTitle>
+<columnTitle title="确认事由明细"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">cfmResDtl</columnTitle>
+<columnTitle title="确认人员"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">cfmer</columnTitle>
+<columnTitle title="确认时间"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">cfmTime</columnTitle>
+<columnTitle title="评级状态"  titleCss="font-size:10;text-align:center;font-weight:bold;" css="font-size:10;text-align:center;">status</columnTitle>
+</row>
+</xml>

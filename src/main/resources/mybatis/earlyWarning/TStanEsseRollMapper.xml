@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.earlyWarning.mapper.TStanEsseRollMapper">
+<!-- 观察名单 -->
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.earlyWarning.entity.TStanEsseRoll">
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		esse_id,
+		esse_name,
+		esse_nation,
+		esse_cust_type,
+		esse_cust_name,
+		esse_bri_date,
+		esse_address,
+		esse_tel,
+		esse_roll_category,
+		esse_roll_source,
+		esse_type,
+		esse_create_date,
+		esse_create_by
+	</sql>
+	<select id="find" resultType="com.aml.earlyWarning.entity.TStanEsseRoll">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_esse_roll
+		where 1 =1
+		<if test="esseType != null and esseType != ''">
+			and esse_type like CONCAT('%','${esseType}','%')
+		</if>
+		<if test="esseName != null and esseName != ''">
+			and esse_name like CONCAT('%','${esseName}','%')
+		</if>
+		<if test="esseCustType != null and esseCustType != ''">
+			and esse_type like CONCAT('%','${esseCustType}','%')
+		</if>
+		<if test="esseCustName != null and esseCustName != ''">
+			and esse_cust_type like CONCAT('%','${esseCustName}','%')
+		</if>
+		<if test="esseTel != null and esseTel != ''">
+			and esse_tel like CONCAT('%','${esseTel}','%')
+		</if>
+		<if test="esseNation != null and esseNation != ''">
+			and esse_nation like CONCAT('%','${esseNation}','%')
+		</if>
+		<if test="esseRollCategory != null and esseRollCategory != ''">
+			and esse_roll_category like CONCAT('%','${esseRollCategory}','%')
+		</if>
+		
+		<if test="startEsseBriDate != null and startEsseBriDate != ''">
+		 <![CDATA[	and  date_format(esse_bri_date,'%Y-%m-%d')>#{startEsseBriDate} ]]>
+		</if>
+		<if test="endEsseBriDate != null and endEsseBriDate != ''">
+			
+
+		<![CDATA[and date_format(esse_bri_date,'%Y-%m-%d')<=#{endEsseBriDate} ]]> 
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and date_format(esse_create_date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and date_format(esse_create_date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+		
+		order by esse_create_date desc limit
+		#{currentPage},#{currentReslut}
+	</select>
+
+	<insert id="add">
+		insert into
+		t_stan_esse_roll(esse_id,esse_name,esse_nation,esse_cust_type,esse_cust_name,esse_bri_date,esse_address,esse_tel,esse_roll_category,esse_roll_source,esse_type,esse_create_date,esse_create_by)
+		values
+		(#{esseId},#{esseName},#{esseNation},#{esseCustType},#{esseCustName},#{esseBriDate},#{esseAddress},#{esseTel},#{esseRollCategory},#{esseRollSource},#{esseType},now(),#{esseCreateBy})
+	</insert>
+
+	<select id="qyeryCount" resultType="com.aml.earlyWarning.entity.TStanEsseRoll">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_esse_roll
+		where 1 =1
+		<if test="esseType != null and esseType != ''">
+			and esse_type like CONCAT('%','${esseType}','%')
+		</if>
+		<if test="esseName != null and esseName != ''">
+			and esse_name like CONCAT('%','${esseName}','%')
+		</if>
+		<if test="esseCustType != null and esseCustType != ''">
+			and esse_type like CONCAT('%','${esseCustType}','%')
+		</if>
+		<if test="esseCustName != null and esseCustName != ''">
+			and esse_cust_type like CONCAT('%','${esseCustName}','%')
+		</if>
+		<if test="esseTel != null and esseTel != ''">
+			and esse_tel like CONCAT('%','${esseTel}','%')
+		</if>
+		<if test="esseNation != null and esseNation != ''">
+			and esse_nation like CONCAT('%','${esseNation}','%')
+		</if>
+		<if test="esseRollCategory != null and esseRollCategory != ''">
+			and esse_roll_category like CONCAT('%','${esseRollCategory}','%')
+		</if>
+		
+		<if test="startEsseBriDate != null and startEsseBriDate != ''">
+		 <![CDATA[	and  date_format(esse_bri_date,'%Y-%m-%d')>#{startEsseBriDate} ]]>
+		</if>
+		<if test="endEsseBriDate != null and endEsseBriDate != ''">
+			
+
+		<![CDATA[and date_format(esse_bri_date,'%Y-%m-%d')<=#{endEsseBriDate} ]]> 
+		</if>
+		
+		<if test="startEsseCreateDate != null and startEsseCreateDate != ''">
+		<![CDATA[	and date_format(esse_create_date,'%Y-%m-%d')>#{startEsseCreateDate}]]> 
+		</if>
+		<if test="endEsseCreateDate != null and endEsseCreateDate != ''">
+		<![CDATA[	and date_format(esse_create_date,'%Y-%m-%d')<=#{endEsseCreateDate}]]> 
+		</if>
+		order by esse_create_date desc 
+	</select>
+
+	<select id="queryMateRoleByRollNo" resultType="com.aml.earlyWarning.entity.TStanEsseRoll">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_esse_roll
+		where esse_name = #{esseName}
+	</select>
+
+	<delete id="deleteByrollId">
+		delete from t_stan_esse_roll where esse_id in
+		<foreach collection="list" index="index" item="i" open="("
+			separator="," close=")">
+			#{i}
+		</foreach>
+	</delete>
+
+	<update id="updateByrollId">
+		update t_stan_esse_roll set esse_name =#{esseName},esse_nation =#{esseNation}
+		,esse_cust_type=#{esseCustType} ,esse_cust_name =#{esseCustName},
+		esse_bri_date=#{esseBriDate},
+		esse_address=#{esseAddress},
+		esse_tel=#{esseTel},
+		esse_roll_category=#{esseRollCategory},
+		esse_roll_source=#{esseRollSource},
+		esse_type=#{esseType} where mate_id = #{esse_id}
+
+	</update>
+
+
+</mapper>
+
+
+
+

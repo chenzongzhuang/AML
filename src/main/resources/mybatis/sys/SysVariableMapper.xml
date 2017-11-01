@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.SysVariableMapper">
+
+	<select id="getSysVariableByNameOrDes"  resultType="com.aml.sys.entity.SysVariable">
+		select * from dic_data
+		where 1=1 
+		<if test="typKind != null and typKind != ''">
+			and TYP_KIND = #{typKind}
+		</if>
+		<if test="typCode != null and typCode != ''">
+				and TYP_CODE like CONCAT('%',#{typCode},'%')
+		</if>
+		
+		<if test="typName != null and typName != ''">
+			and TYP_NAME like CONCAT('%',#{typName},'%')
+		</if>
+	</select>
+	
+</mapper>

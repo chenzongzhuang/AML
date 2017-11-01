@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.crMng.mapper.TStanStifMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.crMng.entity.TStanStif">
+		<result column="id" property="id" />
+		<result column="ctif_tp" property="ctifTp" />
+		<result column="client_tp" property="clientTp" />
+		<result column="ctif_id" property="ctifId" />
+		<result column="ctnm" property="ctnm" />
+		<result column="smid" property="smid" />
+		<result column="citp" property="citp" />
+		<result column="citp_nt" property="citpNt" />
+		<result column="ctid" property="ctid" />
+		<result column="cbat" property="cbat" />
+		<result column="cbac" property="cbac" />
+		<result column="cabm" property="cabm" />
+		<result column="ctat" property="ctat" />
+		<result column="ctac" property="ctac" />
+		<result column="cpin" property="cpin" />
+		<result column="cpba" property="cpba" />
+		<result column="cpbn" property="cpbn" />
+		<result column="ctip" property="ctip" />
+		<result column="tstm" property="tstm" />
+		<result column="crat" property="crat" />
+		<result column="cttp" property="cttp" />
+		<result column="tsdr" property="tsdr" />
+		<result column="crpp" property="crpp" />
+		<result column="crtp" property="crtp" />
+		<result column="tcif_id" property="tcifId" />
+		<result column="tcnm" property="tcnm" />
+		<result column="tsmi" property="tsmi" />
+		<result column="tcit" property="tcit" />
+		<result column="tcit_nt" property="tcitNt" />
+		<result column="tcid" property="tcid" />
+		<result column="tcat" property="tcat" />
+		<result column="tcba" property="tcba" />
+		<result column="tcbn" property="tcbn" />
+		<result column="tctt" property="tctt" />
+		<result column="tcta" property="tcta" />
+		<result column="tcpn" property="tcpn" />
+		<result column="tcpa" property="tcpa" />
+		<result column="tpbn" property="tpbn" />
+		<result column="tcip" property="tcip" />
+		<result column="tmnm" property="tmnm" />
+		<result column="bptc" property="bptc" />
+		<result column="pmtc" property="pmtc" />
+		<result column="ticd" property="ticd" />
+		<result column="redt" property="redt" />
+		<result column="busi_type" property="busiType" />
+		<result column="is_succ" property="isSucc" />
+		<result column="is_rept" property="isRept" />
+		<result column="extend1" property="extend1" />
+		<result column="extend2" property="extend2" />
+		<result column="extend3" property="extend3" />
+		<result column="extend4" property="extend4" />
+		<result column="extend5" property="extend5" />
+		<result column="trans_type" property="transType" />
+		<result column="pos_dev_id" property="posDevId" />
+		<result column="trans_stat" property="transStat" />
+		<result column="bank_stat" property="bankStat" />
+		<result column="gate_id" property="gateId" />
+		<result column="mer_prov" property="merProv" />
+		<result column="mer_area" property="merArea" />
+		<result column="pos_prov" property="posProv" />
+		<result column="pos_area" property="posArea" />
+		<result column="acct_date" property="acctDate" />
+		<result column="ord_id" property="ordId" />
+		<result column="qgj_mer_id" property="qgjMerId" />
+		<result column="mer_unit" property="merUnit" />
+		<result column="run_dt" property="runDt" />
+		<result column="chfg" property="chfg" />
+		<result column="crat_c" property="cratC" />
+		<result column="crat_u" property="cratU" />
+		<result column="hb_expt" property="hbExpt" />
+		<result column="iofg" property="iofg" />
+		<result column="rate_rmb" property="rateRmb" />
+		<result column="rate_usa" property="rateUsa" />
+		<result column="tcit_edt" property="tcitEdt" />
+		<result column="ts_td" property="tsTd" />
+		<result column="ts_tm" property="tsTm" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		id,
+		ctif_tp,
+		client_tp,
+		ctif_id,
+		ctnm,
+		smid,
+		citp,
+		citp_nt,
+		ctid,
+		cbat,
+		cbac,
+		cabm,
+		ctat,
+		ctac,
+		cpin,
+		cpba,
+		cpbn,
+		ctip,
+		tstm,
+		crat,
+		cttp,
+		tsdr,
+		crpp,
+		crtp,
+		tcif_id,
+		tcnm,
+		tsmi,
+		tcit,
+		tcit_nt,
+		tcid,
+		tcat,
+		tcba,
+		tcbn,
+		tctt,
+		tcta,
+		tcpn,
+		tcpa,
+		tpbn,
+		tcip,
+		tmnm,
+		bptc,
+		pmtc,
+		ticd,
+		redt,
+		busi_type,
+		is_succ,
+		is_rept,
+		extend1,
+		extend2,
+		extend3,
+		extend4,
+		extend5,
+		trans_type,
+		pos_dev_id,
+		trans_stat,
+		bank_stat,
+		gate_id,
+		mer_prov,
+		mer_area,
+		pos_prov,
+		pos_area,
+		acct_date,
+		ord_id,
+		qgj_mer_id,
+		mer_unit,
+		run_dt,
+		chfg,
+		crat_c,
+		crat_u,
+		hb_expt,
+		iofg,
+		rate_rmb,
+		rate_usa,
+		tcit_edt,
+		ts_td,
+		ts_tm
+	</sql>
+
+	<!-- 分页 -->
+	<select id="findAllTStanStif" parameterType="java.util.Map"
+		resultMap="BaseResultMap" >
+		select
+			<include refid="Base_Column_List" />
+		from 
+			t_stan_stif 
+		where 
+			1=1
+		<if test="tsdr != null and tsdr != ''">
+    		and ( tsdr like CONCAT('%',#{tsdr},'%'))
+	    </if>
+	    <if test="ticd != null and ticd != ''">
+	    	and (ticd like CONCAT('%',#{ticd},'%'))
+	    </if>
+	    <if test="tstmStart != null">
+	    	and (tstm &gt;= #{tstmStart,jdbcType=DATE})
+	    </if>
+	    <if test="tstmEnd != null ">
+	    	and (tstm &lt;= #{tstmEnd,jdbcType=DATE})
+	    </if>
+	    <if test="cratLeft != null ">
+	    	and (crat &gt;= #{cratLeft,jdbcType=DATE})
+	    </if>
+	    <if test="cratRight != null ">
+	    	and (crat &lt;= #{cratRight,jdbcType=DATE})
+	    </if>
+		order by id ASC
+	</select>
+
+
+
+</mapper>

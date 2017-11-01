@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.TargetRuleMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.sys.entity.TStanTargetRule">
+		
+		
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+ 
+	<sql id="Base_Column_List">
+		rule_id          
+		,rule_no         
+		,rule_name       
+		,rule_category   
+		,rule_apply      
+		,rule_per        
+		,rule_condition  
+		,rule_status     
+		,rule_desc       
+		,rule_create_date
+	</sql>
+    
+    
+	
+    
+	<select id="findTarget" resultType="com.aml.sys.entity.TStanTargetRule">
+	    select 
+	   	<include refid="Base_Column_List" />
+	    from t_stan_target_rule
+	    where 1=1
+		<if test="ruleNo != null and targetNo != ''">
+			and rule_no like CONCAT('%','${ruleNo}','%')
+		</if>
+		<if test="ruleName != null and ruleName != ''">
+			and rule_name like CONCAT('%', '${ruleName}','%')
+		</if>
+		order by rule_create_date desc   limit #{currentPage},#{currentReslut}
+	</select>
+	  
+	<insert id="addTarget">
+		insert into t_stan_target_rule(rule_id,rule_no,rule_name,rule_category,rule_apply,rule_per,rule_condition,rule_status,rule_desc,rule_create_date)
+		values (#{ruleId},#{ruleNo},#{ruleName},#{ruleCategory},#{ruleApply},#{rulePer},#{ruleCondition},'Y',#{ruleDesc},now())
+	</insert>
+	
+	
+	<delete id="deleteTargetByTargetId">
+	   	delete  from t_stan_target_rule where rule_id = #{ruleId}
+	</delete>
+	   
+	 <update id="updateTargetByTargetId">
+		update t_stan_target_rule set rule_no = #{ruleNo}, rule_name =#{ruleName},rule_category =#{ruleCategory} ,rule_apply=#{ruleApply} ,rule_per =#{rulePer},rule_condition  =#{ruleCondition} ,rule_status  =#{ruleStatus} ,rule_desc  =#{ruleDesc} where rule_id =#{ruleId}
+	</update>
+	
+
+</mapper>

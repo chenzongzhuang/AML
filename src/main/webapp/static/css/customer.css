@@ -1,0 +1,82 @@
+@charset "utf-8";
+/* CSS Document */
+/*外层框架样式*/
+
+.title-div {
+	height: 70px;
+	line-height: 70px;
+	*line-height: 60px;
+	background-color: #fff;
+	padding-left: 30px;
+	min-width: 824px !important;
+	box-sizing: border-box;
+}
+.title-div button {
+	font-size: 12px;
+	font-weight: bold;
+}
+.title-div select {
+	height: 26px;
+	width: 120px!important;
+	display: inline;
+	color: #ccc;
+}
+.title-div input {
+	width: 200px !important;
+	display: inline;
+	border: none;
+}
+
+
+.quary-box {
+	height: 150px;
+	line-height: 70px;
+	*line-height: 60px;
+	background-color: #fff;
+	padding-left: 30px;
+	min-width: 824px !important;
+	box-sizing: border-box;
+	border: 1px solid #e6e6e6;
+    width: 99%;
+    margin: auto;
+	
+}
+.quary-box button {
+	font-size: 12px;
+	font-weight: bold;
+}
+.quary-box select {
+	height: 26px;
+	width: 120px!important;
+	display: inline;
+	color: #ccc;
+}
+
+.quary-box .mal {
+	margin-left: 100px;
+}
+
+.quary-box .line {
+	height: 24%;
+}
+.quary-box input {
+	width: 200px !important;
+	display: inline;
+}
+
+.button-box {
+	height: 42px;
+	background-color: #fff;
+    width: 99%;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+
+.btn-box{
+	position: relative;
+    top: 2px;
+    background: #fff;
+}
+
+    

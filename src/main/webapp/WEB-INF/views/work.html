@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="${ctxPath}/static/css/work.css"/>
+	</head>
+	<body>
+		<div class="content-h clearfix">
+			<div class="content-frame-h" style="width: 800px;">
+				<div class="row" style="width: 750px;">
+					@for(dict in session.dict){
+						@if(dict.id+'' == channelId ){
+							<div class="list-title">
+
+								<div class="list-title-title"><p class="double-line"></p><span class="text-span">${dmNm}</span></div>
+							</div>
+							<ul class="list-ul" style="height: auto;">
+								@for(news in checkNews){
+									<li>
+										<div><a style="float: left" href="${ctxPath}/cms/${news.id}">${news.title}</a></div>
+									</li>
+								@}
+							</ul>
+						@}
+					@}
+
+				</div>
+			</div>
+			<div class="content-frame-h border-none" style="width: 400px;">
+				<div class="row">
+					<div class="ui-frame-border  mt20" >
+						@for(dict in session.dict){
+							@if(dict.id+'' != channelId ){
+								<div class="list-title">
+									<a class="list-title-right" href="${ctxPath}/cms/work.html?channelId=${dict.id}&dmNm=${dict.dmNm}">
+										更多
+									</a>
+									<div class="list-title-title"><img src="${ctxPath}/static/img/hmjyl.png" width="20px"/><span class="text-span">${dict.dmNm}</span></div>
+								</div>
+								<ul class="list-ul">
+									@for(othernews in otherNews){
+										@if(othernews.channelId == dict.id+''){
+											<li>
+												<a>${othernews.publishTime}</a>
+												<div><img src="${ctxPath}/static/img/action.jpg" height="5" width="5"/>${othernews.keyword}</div>
+											</li>
+										@}
+
+									@}
+								</ul>
+							@}
+						@}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

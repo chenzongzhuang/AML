@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.earlyWarning.mapper.TStanAreaRollTypeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.earlyWarning.entity.TStanAreaRollType">
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		roll_id ,
+		roll_en ,
+		roll_name ,
+		roll_cont ,
+		roll_desc ,
+		roll_type ,
+		roll_create_date ,
+		roll_create_by
+	</sql>
+
+	<select id="find" resultType="com.aml.earlyWarning.entity.TStanAreaRollType">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_area_roll_type
+		where 1 =1
+		<if test="rollName != null and rollName != ''">
+			and roll_name like CONCAT('%','${roll_name}','%')
+		</if>
+		<if test="rollType != null and rollType != ''">
+			and roll_type like CONCAT('%', '${roll_type}','%')
+		</if>
+
+		order by roll_create_by desc limit #{currentPage},#{currentReslut}
+	</select>
+
+	<insert id="add">
+		insert into
+		t_stan_area_roll_type(roll_id,roll_en,roll_name,roll_cont,roll_desc,roll_type,roll_create_date,roll_create_by)
+		values
+		(#{rollId},#{rollEn},#{rollName},#{rollCont},#{rollDesc},#{rollType},#{rollCreateDate},#{rollCreateBy})
+	</insert>
+
+	<select id="qyeryCount" resultType="com.aml.earlyWarning.entity.TStanAreaRollType">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_area_roll_type
+		where 1 =1
+		<if test="rollName != null and rollName != ''">
+			and roll_name like CONCAT('%','${roll_name}','%')
+		</if>
+		<if test="rollType != null and rollType != ''">
+			and roll_type like CONCAT('%', '${roll_type}','%')
+		</if>
+
+		order by roll_create_by desc 
+	</select>
+
+	<delete id="deleteByrollId">
+		delete from t_stan_area_roll_type where roll_id in  <foreach  collection="list" index="index" item="i" open="("
+			separator="," close=")">
+			#{i}
+			</foreach>
+	</delete>
+
+	<update id="updateByrollId">
+		update t_stan_area_roll_type set roll_en =#{rollEn},roll_name =#{rollName},roll_type =#{rollType}
+		,roll_cont=#{rollCont} ,roll_desc =#{rollDesc} where roll_id = #{rollId} 
+		
+	</update>
+
+
+</mapper>
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="${ctxPath}/static/css/work.css"/>
+	</head>
+	<body>
+		<div class="banner-h">
+			<img src="${ctxPath}/static/img/fxq.jpg" width="100%"/>
+		</div>
+		<div class="content-h clearfix">
+			<div class="row">
+				@for(dict in session.dict){
+				<div class="content-frame-h" style="width: 400px;">
+					<div class="list-title">
+						<a class="list-title-right" href="${ctxPath}/cms/work.html?channelId=${dict.id}&dmNm=${dict.dmNm}" target="_blank">
+							更多
+						</a>
+						<div class="list-title-title"><img src="${ctxPath}/static/img/hmjyl.png" width="20px"/><span class="text-span">${dict.dmNm}</span></div>
+					</div>
+					<ul class="list-ul">
+						@for(news in session.cmsNews){
+							@if(dict.id+'' == news.channelId){
+								<li>
+									<a>${news.publishTime}</a>
+									<div><img src="${ctxPath}/static/img/action.jpg" height="5" width="5"/>${news.keyword}</div>
+								</li>
+							@}
+						@}
+					</ul>
+				</div>
+				@}
+
+			</div>
+		</div>
+	</body>
+</html>

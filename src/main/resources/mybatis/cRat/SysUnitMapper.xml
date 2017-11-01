@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.SysUnitMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="sysUnitResultMap" type="com.aml.cRat.entity.SysUnit">
+		<id column="ID" property="id" />
+		<result column="CODE" property="code" />
+		<result column="NAME" property="name" />
+		<result column="PCODE" property="pcode" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="sysUnit_Column_List">
+		ID,
+		CODE,
+		NAME,
+		PCODE,
+		CREATE_TIME,
+		UPDATE_TIME
+	</sql>
+    <select id="findAllSysUnit" resultType="com.aml.cRat.entity.SysUnit">
+	      select 
+	     	<include refid="sysUnit_Column_List" />
+	      from sys_unit
+	      where 1=1 
+	      order by UPDATE_TIME desc
+    </select>
+</mapper>

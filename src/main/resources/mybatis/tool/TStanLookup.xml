@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.tool.mapper.TStanLookupMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.tool.entity.TStanLookup">
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		lookup_id,
+		lookup_type,
+		lookup_name,
+		lookup_en,
+		lookup_desc,
+		lookup_num,
+		lookup_create_date,
+		lookup_create_by
+
+	</sql>
+
+	<select id="find" resultType="com.aml.tool.entity.TStanLookup">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_lookup
+		where 1 =1
+		<if test="lookupName != null and lookupName != ''">
+			and lookup_name like CONCAT('%','${lookupName}','%')
+		</if>
+		<if test="lookupType != null and lookupType != ''">
+			and lookup_type like CONCAT('%', '${lookupType}','%')
+		</if>
+
+		order by lookup_create_date desc limit #{currentPage},#{currentReslut}
+	</select>
+	
+	<select id="findByType" resultType="com.aml.tool.entity.TStanLookup">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_lookup
+		where lookup_type=#{lookupType}
+
+		order by lookup_num desc 
+	</select>
+	<insert id="add">
+		insert into
+		t_stan_lookup(lookup_id,lookup_type,lookup_name,lookup_en,lookup_desc,lookup_num,lookup_create_date,lookup_create_by)
+		values
+		(#{lookupId},#{lookupType},#{lookupName},#{lookupEn},#{lookupDesc},#{lookupNum},now(),#{lookupCreateBy})
+	</insert>
+
+	<select id="qyeryCount" resultType="com.aml.tool.entity.TStanLookup">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_lookup
+		where 1 =1
+		<if test="lookupName != null and lookupName != ''">
+			and lookup_name like CONCAT('%','${lookupName}','%')
+		</if>
+		<if test="lookupType != null and lookupType != ''">
+			and lookup_type like CONCAT('%', '${lookupType}','%')
+		</if>
+		order by lookup_create_date desc 
+	</select>
+
+	<delete id="deleteByrollId">
+		delete from t_stan_lookup where lookup_id in  <foreach  collection="list" index="index" item="i" open="("
+			separator="," close=")">
+			#{i}
+			</foreach>
+	</delete>
+
+	<update id="updateByrollId">
+		update t_stan_lookup set lookup_name =#{lookupName},lookup_desc =#{lookupDesc},lookup_num =#{lookupNum}
+		,lookup_en=#{lookupEn}  where lookup_id = #{lookupId}
+	</update>
+
+
+</mapper>
+
+
+

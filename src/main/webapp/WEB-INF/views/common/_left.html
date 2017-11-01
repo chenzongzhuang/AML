@@ -1,0 +1,65 @@
+<div style="width:20%;float:left;">
+<nav class="navbar-default navbar-static-side" role="navigation">
+					<div class="nav-close">
+						<i class="fa fa-times-circle"></i>
+					</div>
+					<div class="sidebar-collapse">
+						<ul class="nav" id="side-menu">
+							@for(title in titles){
+				                @if(tool.isEmpty(title.children)){
+				                    <li>
+				                        <a class="J_menuItem" href="${ctxPath}${title.url}" name="tabMenuItem">
+				                            <i class="fa ${title.icon}"></i>
+				                            <span class="nav-label">${title.name}</span>
+				                        </a>
+				                    </li>
+				                @}else{
+                   			 <li>
+	                        <a href="#">
+	                            <i class="fa ${title.icon}"></i>
+	                            <span class="nav-label">${title.name}</span>
+	                            <span class="fa arrow"></span>
+	                        </a>
+                        <ul class="nav nav-second-level">
+                            @for(subTitle in title.children){
+                                @if(tool.isEmpty(subTitle.children)){
+                                    <li>
+                                        <a class="J_menuItem" href="${ctxPath}${subTitle.url}" name="tabMenuItem">${subTitle.name}</a>
+                                    </li>
+                                @}else{
+                                    <li>
+                                        <a href="#">${subTitle.name} <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            @for(thirdTitle in subTitle.children){
+                                           	 	@if(tool.isEmpty(thirdTitle.children)){
+						                        <li class="active">
+						                            <a class="" href="${thirdTitle.url}" aria-controls="stud" role="tab" data-toggle="tab">${thirdTitle.name}</a>
+						                        </li>
+						                        @}else{
+						                        <li>
+						                            <a href="#">
+						                                <span class="nav-label">${thirdTitle.name}</span>
+						                            </a>
+						                            <ul  class="child">
+						                                @for(fourTitle in thirdTitle.children){
+						                                <li>
+						                                    <a class="" href="${fourTitle.url}" aria-controls="stud" role="tab" data-toggle="tab">${fourTitle.name}</a>
+						                                </li>
+						
+						                                @}
+						                            </ul>
+						                        </li>
+						                        @}
+                                            @}
+                                        </ul>
+                                    </li>
+                                @}
+                            @}
+                        </ul>
+                    </li>
+                @}
+            @}
+						</ul>
+					</div>
+				</nav>
+</div>

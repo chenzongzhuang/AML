@@ -1,0 +1,47 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow:auto;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<!--etl日志管理模块-->
+		<div role="tabpanel" class="tab-pane active">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a href="#" class="btn btn-default"> <span
+						class="glyphicon glyphicon-unchecked"></span>显示
+					</a> <a href="#" class="btn btn-default"> <span
+						class="glyphicon glyphicon-sort-by-attributes"></span>排序
+					</a> <a href="#" class="btn btn-default"> <span
+						class="glyphicon glyphicon-search"></span>高级查询
+					</a>
+				</div>
+				<div class="panel-body form-group" style="margin: 0 auto">
+					<label class="col-sm-1 control-label" style="width:10%;margin-top:10px;">采集日期：</label>
+					<div class="col-sm-2" style="width:20%;margin-top:10px;">
+						<input type='text' class="form-control"
+							style="width: 180px;height:30px;" id="colDt" name="colDt" /> 
+					</div>
+					<label class="col-sm-1 control-label" style="width:10%;margin-top:10px;">采集结果：</label>
+					<div class="col-sm-2" style="width:20%;margin-top:10px;">
+						<div class="col-xs-8">
+							<select class=" form-control select-duiqi" id="colResult"
+								name="colResult">
+								<option value="0">成功</option>
+								<option value="1">失败</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3 col-md-offset-3" style="width:10%">
+						<button class="btn btn-primary" id="search_btn">查询</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table id="dataTable"></table>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="${ctxPath}/static/modular/etl/etlLogMain.js"></script>
+@}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.crMng.mapper.TSanDiligenceMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.crMng.entity.TSanDiligence">
+		<result column="id" property="id" />
+		<result column="ctif_id" property="ctifId" />
+		<result column="content" property="content" />
+		<result column="attach_path" property="attachPath" />
+		<result column="attach_name" property="attachName" />
+		<result column="type" property="type" />
+		<result column="create_user" property="createUser" />
+		<result column="remark1" property="remark1" />
+		<result column="remark2" property="remark2" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		id,
+		ctif_id,
+		content,
+		attach_path,
+		attach_name,
+		type,
+		create_user,
+		remark1,
+		remark2,
+		create_time,
+		update_time
+	</sql>
+
+	<!-- 查询 -->
+	<select id="getCustInfo" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_stan_person T
+		<where>
+			<if test="id != null and id != ''">
+				AND T.ID = #{id}
+			</if>
+		</where>
+		ORDER BY T.ID ASC
+	</select>
+
+
+
+</mapper>

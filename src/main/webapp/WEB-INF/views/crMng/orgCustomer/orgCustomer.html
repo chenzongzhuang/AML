@@ -1,0 +1,151 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<!-- 右侧具体内容栏目 -->
+<form id="excelForm">
+	<div class="">
+		<div class="col-sm-2" style="padding-top: 9px;">
+			<span style="font-weight: bolder;">▏机构客户</span>
+		</div>
+		<div style="padding-right: 5px; text-align: right;">
+			<a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-plus "></span>设为可疑
+			</a> <a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-check"></span>调整评级
+			</a> <a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-list-alt"></span>加入黑名单
+			</a> <a href="#" class="btn btn-default btn-white" id="exportExcel">
+				<span class="glyphicon glyphicon-new-window"></span>导出
+			</a> <a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-unchecked"></span>显示
+			</a> <a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-sort-by-attributes"></span>排序
+			</a> <a href="#" class="btn btn-default btn-white"> <span
+				class="glyphicon glyphicon-search"></span>高级查询
+			</a>
+		</div>
+		<!-- 		<div class="col-xs-4 col-lg-4  col-md-5" style="padding-right: 40px;text-align: right;float: right;width:60.5%; "> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#setSuspect">设为可疑</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#adjustRating">调整评级</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#joinList">加入名单</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#derivation">导出</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#display">显示</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#sorting">排序</button> -->
+		<!-- 			<button class="btn btn-white btn-xs " data-toggle="modal" data-target="#advancedQuery">高级查询</button> -->
+		<!-- 		</div> -->
+	</div>
+	<div id="rightContent" style="overflow: auto;">
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<!--个人客户模块-->
+			<div role="tabpanel" class="tab-pane active">
+				<form id="listForm" name="listForm" method="post" role="form">
+					<div class="panel panel-default">
+						<div class="panel panel-default">
+							<div class="panel-body form-group" style="margin: 0 auto">
+								<label class="col-sm-2 control-label">客户号</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="busiRegNo"
+										id="busiRegNo" />
+								</div>
+								<label class="col-sm-2 control-label">客户名称</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="ctnm" id="ctnm" />
+								</div>
+								<label class="col-sm-2 control-label">客户类别</label>
+								<div class="col-sm-2">
+									<select id="clientTp" name="clientTp"
+										class="selectpicker show-tick form-control"
+										data-style="btn-select" data-live-search="true"
+										data-selected-text-format="count">
+									</select>
+								</div>
+							</div>
+
+							<div class="panel-body form-group" style="margin: 0 auto">
+								<label class="col-sm-2 control-label">主体证件号码</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="agencyCtid"
+										id="agencyCtid" />
+								</div>
+								<label class="col-sm-2 control-label">证件到期</label>
+								<div class="col-sm-2">
+									<select id="endtime" name="endtime"
+										class="selectpicker show-tick form-control"
+										data-style="btn-select" data-live-search="true"
+										data-selected-text-format="count">
+									</select>
+								</div>
+								<label class="col-sm-2 control-label">风险等级</label>
+								<div class="col-sm-2">
+									<select id="riskLevel" name="riskLevel"
+										class="selectpicker show-tick form-control"
+										data-style="btn-select" data-live-search="true"
+										data-selected-text-format="count">
+									</select>
+								</div>
+							</div>
+
+							<div class="panel-body form-group" style="margin: 0 auto">
+								<label class="col-sm-2 control-label">分支机构</label>
+								<div class="col-sm-2">
+									<select id="merUnit" name="merUnit"
+										class="selectpicker show-tick form-control"
+										data-style="btn-select" data-live-search="true"
+										data-selected-text-format="count">
+									</select>
+								</div>
+								<!--指定 date标记-->
+								<label class="col-sm-2 control-label"
+									style="text-align: right; margin-top: 5px;">开户日期：</label>
+								<div class='input-group date' id='startdiv'
+									style="float: left; left: 16px; top: 8px;">
+									<input type='text' class="form-control"
+										style="width: 180px; height: 30px;" id="rgdtStart"
+										name="rgdtStart" /> <span class="input-group-addon"
+										style="float: left; width: 50px; height: 30px;"> <span
+										class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+								<span class="glyphicon glyphicon-minus"
+									style="float: left; left: 20px; top: 16px;"></span>
+								<div class='input-group date' id='endDiv'
+									style="float: left; left: 28px; top: 8px;">
+									<input type='text' class="form-control"
+										style="width: 180px; height: 30px;" id="rgdtEnd"
+										name="rgdtEnd" /> <span class="input-group-addon"
+										style="float: left; width: 50px; height: 30px;"> <span
+										class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+							<div class="panel-body form-group">
+								<div>
+									<div class="col-xs-5"></div>
+									<a href="#" class="btn btn-default btn-primary" id=search_btn>
+										<span></span>查询
+									</a> <a href="#" class="btn btn-default btn-primary"
+										id="preciseQuery"> <span></span>精确查询
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<table id="perCustomerTable"></table>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</form>
+<link
+	href="${ctxPath}/static/bootstrap/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<script src="${ctxPath}/static/bootstrap/js/moment-with-locales.min.js"></script>
+<script
+	src="${ctxPath}/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+	src="${ctxPath}/static/modular/system/crMng/orgCustomer.js"></script>
+<link href="${ctxPath}/static/bootstrap/css/bootstrap-select.css"
+	rel="stylesheet">
+<script src="${ctxPath}/static/bootstrap/js/bootstrap-select.js"></script>
+@}

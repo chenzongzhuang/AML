@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.crMng.mapper.BakStanOrgMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.crMng.entity.BakStanOrg">
+		<result column="id" property="id" />
+		<result column="client_tp" property="clientTp" />
+		<result column="account_tp" property="accountTp" />
+		<result column="busi_type" property="busiType" />
+		<result column="busi_reg_no" property="busiRegNo" />
+		<result column="ctnm" property="ctnm" />
+		<result column="smid" property="smid" />
+		<result column="linkman" property="linkman" />
+		<result column="linktel" property="linktel" />
+		<result column="linkjob" property="linkjob" />
+		<result column="linkmail" property="linkmail" />
+		<result column="linkphone" property="linkphone" />
+		<result column="ceml" property="ceml" />
+		<result column="ctvc" property="ctvc" />
+		<result column="crnm" property="crnm" />
+		<result column="crit" property="crit" />
+		<result column="crit_nt" property="critNt" />
+		<result column="crid" property="crid" />
+		<result column="crid_edt" property="cridEdt" />
+		<result column="rgdt" property="rgdt" />
+		<result column="cls_dt" property="clsDt" />
+		<result column="redt" property="redt" />
+		<result column="scale" property="scale" />
+		<result column="country" property="country" />
+		<result column="endtime" property="endtime" />
+		<result column="crp_type" property="crpType" />
+		<result column="fud_date" property="fudDate" />
+		<result column="reg_cptl" property="regCptl" />
+		<result column="remark_ctvc" property="remarkCtvc" />
+		<result column="agency_ctnm" property="agencyCtnm" />
+		<result column="agency_citp" property="agencyCitp" />
+		<result column="agency_ctid" property="agencyCtid" />
+		<result column="agency_edt" property="agencyEdt" />
+		<result column="remark" property="remark" />
+		<result column="tsdt1" property="tsdt1" />
+		<result column="tsdt2" property="tsdt2" />
+		<result column="extend1" property="extend1" />
+		<result column="extend2" property="extend2" />
+		<result column="extend3" property="extend3" />
+		<result column="extend4" property="extend4" />
+		<result column="extend5" property="extend5" />
+		<result column="cur_in_num" property="curInNum" />
+		<result column="cur_in_amt" property="curInAmt" />
+		<result column="cur_out_num" property="curOutNum" />
+		<result column="cur_out_amt" property="curOutAmt" />
+		<result column="acc_in_num" property="accInNum" />
+		<result column="acc_in_amt" property="accInAmt" />
+		<result column="acc_out_num" property="accOutNum" />
+		<result column="acc_out_amt" property="accOutAmt" />
+		<result column="risk_level" property="riskLevel" />
+		<result column="comp_score" property="compScore" />
+		<result column="succ_num" property="succNum" />
+		<result column="rept_num" property="reptNum" />
+		<result column="stdt" property="stdt" />
+		<result column="indu_code" property="induCode" />
+		<result column="stat_flag" property="statFlag" />
+		<result column="mer_prov" property="merProv" />
+		<result column="mer_area" property="merArea" />
+		<result column="mer_unit" property="merUnit" />
+		<result column="next_date" property="nextDate" />
+		<result column="is_line" property="isLine" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="run_dt" property="runDt" />
+		<result column="hashcode" property="hashcode" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		client_tp,
+		account_tp,
+		busi_type,
+		busi_reg_no,
+		ctnm,
+		smid,
+		linkman,
+		linktel,
+		linkjob,
+		linkmail,
+		linkphone,
+		ceml,
+		ctvc,
+		crnm,
+		crit,
+		crit_nt,
+		crid,
+		crid_edt,
+		rgdt,
+		cls_dt,
+		redt,
+		scale,
+		country,
+		endtime,
+		crp_type,
+		fud_date,
+		reg_cptl,
+		remark_ctvc,
+		agency_ctnm,
+		agency_citp,
+		agency_ctid,
+		agency_edt,
+		remark,
+		tsdt1,
+		tsdt2,
+		extend1,
+		extend2,
+		extend3,
+		extend4,
+		extend5,
+<!-- 		cur_in_num, -->
+<!-- 		cur_in_amt, -->
+<!-- 		cur_out_num, -->
+<!-- 		cur_out_amt, -->
+<!-- 		acc_in_num, -->
+<!-- 		acc_in_amt, -->
+<!-- 		acc_out_num, -->
+<!-- 		acc_out_amt, -->
+
+		risk_level
+<!-- 		, -->
+
+<!-- 		comp_score, -->
+<!-- 		succ_num, -->
+<!-- 		rept_num, -->
+<!-- 		stdt, -->
+<!-- 		indu_code, -->
+<!-- 		stat_flag, -->
+<!-- 		mer_prov, -->
+<!-- 		mer_area, -->
+<!-- 		mer_unit, -->
+<!-- 		next_date, -->
+<!-- 		is_line, -->
+<!-- 		create_time, -->
+<!-- 		update_time, -->
+<!-- 		run_dt, -->
+<!-- 		hashcode -->
+	</sql>
+	
+	<!-- 分页 -->
+	<select id="findAllBakStanOrg" parameterType="java.util.Map"
+		resultMap="BaseResultMap" >
+		select
+			<include refid="Base_Column_List" />
+		from 
+			bak_stan_org b
+		where 
+			1=1
+		<if test="busiRegNo != null and busiRegNo != ''">
+    		and ( busi_reg_no like CONCAT('%',#{busiRegNo},'%'))
+	    </if>
+	    <if test="ctnm != null and ctnm != ''">
+	    	and (ctnm like CONCAT('%',#{ctnm},'%'))
+	    </if>
+	    <if test="clientTp != null and clientTp != ''">
+	    	and (client_tp like CONCAT('%',#{clientTp},'%'))
+	    </if>
+	    <if test="agencyCtid != null and agencyCtid != ''">
+	    	and (agency_ctid like CONCAT('%',#{agencyCtid},'%'))
+	    </if>
+	    <if test="endtime != null and endtime != ''">
+	    	and (endtime like CONCAT('%',#{endtime},'%'))
+	    </if>
+	    <if test="riskLevel != null and riskLevel != ''">
+	    	and (risk_level like CONCAT('%',#{riskLevel},'%'))
+	    </if>
+	    <if test="merUnit != null and merUnit != ''">
+	    	and (mer_unit like CONCAT('%',#{merUnit},'%'))
+	    </if>
+	    <if test="rgdtStart != null">
+	    	and (rgdt &gt;= #{rgdtStart,jdbcType=DATE})
+	    </if>
+	    <if test="rgdtEnd != null ">
+	    	and (rgdt &lt;= #{rgdtEnd,jdbcType=DATE})
+	    </if>
+		order by b.id ASC
+	</select>
+</mapper>

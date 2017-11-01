@@ -1,0 +1,68 @@
+@layout("/common/_container.html"){
+<!-- 右侧具体内容栏目 -->
+<div id="rightContent" style="overflow:hidden;">
+	<!-- Tab panes -->
+	<div class="" id="tab_content">
+		<div role="tabpanel" class="tab-pane active">
+			<div class="panel panel-default">
+				<div class="panel-heading">流程管理</div>
+			</div>
+			<div class="panel-body" style="overflow:hidden;">
+				<form class="form-horizontal" id="EtlAddFrom" style="margin-top:3px;">
+					<div class="form-group ">
+						<label for="account" class="col-xs-3 control-label">名称：</label>
+						<div class="col-xs-8 ">
+							<input class="form-control input-sm duiqi" value="" name="name"
+								id="name" placeholder="">
+						</div>
+					</div> 
+					<div class="form-group ">
+						<label for="sName" class="col-xs-3 control-label">跑批日期：</label>
+						<div class="col-xs-8 ">
+							<input type='text' class="form-control"
+							style="width: 180px; height: 30px;" id="colDt" name="colDt" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sLink" class="col-xs-3 control-label">跑批差异天数：：</label>
+						<div class="col-xs-8 ">
+							<input  class="form-control input-sm duiqi"
+								id="diffDay" name="diffDay"  placeholder="">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sOrd" class="col-xs-3 control-label">任务类型：</label>
+						<div class="col-xs-8">
+							<input name="dataSoure" type="radio" value=""  checked="checked"  disabled/>重跑
+							&nbsp;&nbsp;&nbsp;&nbsp;<input name="dataSoure" type="radio" value="" disabled/>常规
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sKnot" class="col-xs-3 control-label">跑批步骤：</label>
+						<div class="col-xs-8">
+							<select name="stepid" id="stepid">
+								<option value="step1_target_load" selected="selected">第一步加载</option>
+							</select>
+						
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sKnot" class="col-xs-3 control-label">备注：</label>
+						<div class="col-xs-8">
+								<input class="form-control input-sm duiqi" id="remark"
+								name="remark" value="" placeholder="">
+						</div>
+					</div>
+					<div class="form-group" >
+						<div class="col-xs-8" style="text-align:center"> 
+						 	<input type="button" id="save_btn" onclick="addBatch()" value="保存"/>
+						</div>
+					 </div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${ctxPath}/static/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="${ctxPath}/static/modular/etl/etlBatch.js"></script>
+@}

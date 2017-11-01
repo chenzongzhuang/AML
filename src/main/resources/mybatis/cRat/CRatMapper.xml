@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.CRatMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="CRatResultMap" type="com.aml.cRat.entity.CRat">
+		<id column="ID" property="id" />
+		<result column="CST_ID"       property="cstId"/>
+		<result column="CTKD"         property="ctKd"/>
+		<result column="RKTP"         property="rkTp"/>
+		<result column="ASS_NO"       property="assNo"/>
+		<result column="FST_AUT_TIME" property="fstAutTime"/>
+		<result column="FST_AUT_RANK" property="fstAutRank"/>
+		<result column="FST_MAN_RANK" property="fstManRank"/>
+		<result column="PRE_AUT_TIME" property="preAutTime"/>
+		<result column="PRE_AUT_RANK" property="preAutRank"/>
+		<result column="PRE_MAN_RANK" property="preManFank"/>
+		<result column="ASSC"         property="assc"/>
+		<result column="AUT_RANK"     property="autRank"/>
+		<result column="AUT_TIME"     property="autTime"/>
+		<result column="TRG_DS"       property="trgDs"/>
+		<result column="RNK_DS"       property="rnkDs"/>
+		<result column="CFM_RANK"     property="cfmRank"/>
+		<result column="CFM_RES_KND"  property="cfmResKnd"/>
+		<result column="CFM_RES_DTL"  property="cfmResDtl"/>
+		<result column="CFMER"        property="cfmer"/>
+		<result column="CFM_TIME"     property="cfmTime"/>
+		<result column="EAS_RES_KND"  property="easResKnd"/>
+		<result column="EAS_RES_DTL"  property="easResDtl"/>
+		<result column="EASER"        property="easer"/>
+		<result column="EAS_TIME"     property="easTime"/>
+		<result column="ADJ_RES_KND"  property="adjResKnd"/>
+		<result column="ADJ_RES_DTL " property="adjResDtl"/>
+		<result column="ADJER"        property="adjer"/>
+		<result column="ADJ_TIME"     property="adjTime"/>
+		<result column="STATUS"       property="status"/>
+		<result column="RMDL"         property="rmdl"/>
+		<result column="VERSION"      property="version"/>
+		<result column="MANC"         property="manc"/>
+		<result column="ADJ_RANK"     property="adjRank"/>
+		<result column="NEXT_DATE"    property="nextDate"/>
+		<result column="MER_UNIT"     property="merUnit"/>
+		<result column="CLIENT_TP"    property="clientTp"/>
+		<result column="RUN_DT"       property="runDt"/>
+		<result column="RANK_JSON"    property="rankJson"/>
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="CRat_Column_List">
+		A.ID,
+		A.CST_ID,
+		A.CTKD,
+		A.RKTP,
+		A.ASS_NO,
+		A.FST_AUT_TIME,
+		A.FST_AUT_RANK,
+		A.FST_MAN_RANK,
+		A.PRE_AUT_TIME,
+		A.PRE_AUT_RANK,
+		A.PRE_MAN_RANK,
+		A.ASSC,
+		A.AUT_RANK,
+		A.AUT_TIME,
+		A.TRG_DS,
+		A.RNK_DS,
+		A.CFM_RANK,
+		A.CFM_RES_KND,
+		A.CFM_RES_DTL,
+		A.CFMER,
+		A.CFM_TIME,
+		A.EAS_RES_KND,
+		A.EAS_RES_DTL,
+		A.EASER,
+		A.EAS_TIME,
+		A.ADJ_RES_KND,
+		A.ADJ_RES_DTL,
+		A.ADJER,
+		A.ADJ_TIME,
+		A.STATUS,
+		A.RMDL,
+		A.VERSION ,
+		A.MANC,
+		A.ADJ_RANK,
+		A.NEXT_DATE,
+		A.MER_UNIT,
+		A.CLIENT_TP,
+		A.RUN_DT,
+		A.RANK_JSON
+	</sql>
+    <select id="findAllCRat" resultType="com.aml.cRat.entity.CRat">
+	      SELECT 
+	     	<include refid="CRat_Column_List" />,
+			B.CTNM
+	      FROM T_CRA_RANK A,T_STAN_PERSON B
+	      WHERE 1=1 
+	      AND B.BUSI_REG_NO=A.CST_ID  
+	      <if test="clientTp != null and clientTp != ''">
+	    	and (B.CLIENT_TP = CONCAT('',#{clientTp},''))
+	    </if>
+	    <if test="stus != null and stus != ''">
+	    	and (A.STATUS != CONCAT('',#{stus},''))
+	    </if>
+	    <if test="rkTp != null and rkTp != ''">
+	    	and (A.RKTP = CONCAT('',#{rkTp},''))
+	    </if>
+	    <if test="rkTp == 1 or rkTp == '1'">
+		    and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(B.RGDT)
+	    </if>
+	    <if test="cstId != null and cstId != ''">
+    		and ( A.CST_ID like CONCAT('%',#{cstId},'%'))
+	    </if>
+	    <if test="ctnm != null and ctnm != ''">
+	    	and (B.CTNM like CONCAT('%',#{ctnm},'%'))
+	    </if>
+	    <if test="status != null and status != ''">
+	    	and (A.STATUS like CONCAT('%',#{status},'%'))
+	    </if>
+	    <if test="fstAutRank != null and fstAutRank != ''">
+	    	and (A.FST_AUT_RANK like CONCAT('%',#{fstAutRank},'%'))
+	    </if>
+	    <if test="fstManRank != null and fstManRank != ''">
+	    	and (A.FST_MAN_RANK like CONCAT('%',#{fstManRank},'%'))
+	    </if>
+	    <if test="fstAutTimeStart != null ">
+	    	and (A.FST_AUT_TIME &gt;= #{fstAutTimeStart,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="fstAutTimeEnd != null">
+	    	and (A.FST_AUT_TIME &lt;#{fstAutTimeEnd,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="merUnit != null and merUnit != ''">
+	    	and (A.MER_UNIT like CONCAT('%',#{merUnit},'%'))
+	    </if>
+	     	order by A.CST_ID asc
+    </select>
+     <select id="findAllOrgCRat" resultType="com.aml.cRat.entity.CRat">
+	      SELECT 
+	     	<include refid="CRat_Column_List" />,
+			B.CTNM
+	      FROM T_CRA_RANK A,T_STAN_ORG B
+	      WHERE 1=1 
+	      AND B.BUSI_REG_NO=A.CST_ID  
+	      <if test="clientTp != null and clientTp != ''">
+	    	and (B.CLIENT_TP = CONCAT('',#{clientTp},''))
+	    </if>
+	    <if test="stus != null and stus != ''">
+	    	and (A.STATUS != CONCAT('',#{stus},''))
+	    </if>
+	    <if test="rkTp != null and rkTp != ''">
+	    	and (A.RKTP = CONCAT('',#{rkTp},''))
+	    </if>
+	    <if test="rkTp == 1 or rkTp == '1'">
+		    and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(B.RGDT)
+	    </if>
+	    <if test="cstId != null and cstId != ''">
+    		and ( A.CST_ID like CONCAT('%',#{cstId},'%'))
+	    </if>
+	    <if test="ctnm != null and ctnm != ''">
+	    	and (B.CTNM like CONCAT('%',#{ctnm},'%'))
+	    </if>
+	    <if test="status != null and status != ''">
+	    	and (A.STATUS like CONCAT('%',#{status},'%'))
+	    </if>
+	    <if test="fstAutRank != null and fstAutRank != ''">
+	    	and (A.FST_AUT_RANK like CONCAT('%',#{fstAutRank},'%'))
+	    </if>
+	    <if test="fstManRank != null and fstManRank != ''">
+	    	and (A.FST_MAN_RANK like CONCAT('%',#{fstManRank},'%'))
+	    </if>
+	    <if test="fstAutTimeStart != null ">
+	    	and (A.FST_AUT_TIME &gt;= #{fstAutTimeStart,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="fstAutTimeEnd != null">
+	    	and (A.FST_AUT_TIME &lt;#{fstAutTimeEnd,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="merUnit != null and merUnit != ''">
+	    	and (A.MER_UNIT like CONCAT('%',#{merUnit},'%'))
+	    </if>
+	     	order by A.CST_ID asc
+    </select>
+</mapper>

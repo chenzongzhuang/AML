@@ -1,0 +1,133 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+@layout("/common/_container.html"){	
+		<!-- 右侧具体内容栏目 -->
+			<div id="rightContent">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="newCRat">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="col-sm-7">
+									<span style="font-weight: bolder;">▏指标定性设置</span>
+								</div>
+				        		<a href="#" class="btn btn-default" id="IQulSet_add">
+						           <span class="glyphicon glyphicon-check" ></span>新增
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-unchecked"></span>显示
+						        </a>
+				        		<a href="#" class="btn btn-default">
+						           <span class="glyphicon glyphicon-sort-by-attributes"></span>排序
+						        </a>
+						    </div>
+						</div>
+						<table id="iQulSetTableInit"></table>
+					</div>
+				</div>
+			</div>
+			<!--弹出添加用户Modal窗口-->
+			<div class="modal fade" id="addIQulSet" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="gridSystemModalLabel">新增指标定性</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								<form class="form-horizontal" id="addIQulSetFrom">
+									<div class="form-group ">
+										<label for="account" class="col-xs-4 control-label">规则名称：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control input-sm duiqi" name="rlNm"  id="rlNm" placeholder="">
+										</div>
+									</div>
+									<div class="form-group ">
+										<label for="sName" class="col-xs-4 control-label">规则模型：</label>
+										<div class="col-xs-8 ">
+											<input  class="form-control input-sm duiqi" name="rlTp"  id="rlTp" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sLink" class="col-xs-4 control-label">状态：</label>
+										<div class="col-xs-8 ">
+											<input class="form-control input-sm duiqi"  id="status" name="status" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sOrd" class="col-xs-4 control-label">需要调整的等级：</label>
+										<div class="col-xs-8">
+											<input class="form-control input-sm duiqi" id="adjRank" name="adjRank" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label">目标等级：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="tgtRank" name="tgtRank" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="sKnot" class="col-xs-4 control-label"> 优先级：</label>
+										<div class="col-xs-8">
+											<input  class="form-control input-sm duiqi" id="priority" name="priority" placeholder="">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-xs btn-green" id="saveIQulSet">保 存</button>
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!--弹出修改用户Modal窗口-->
+			<div class="modal fade" id="reviseIQulSet" role="dialog" aria-labelledby="gridSystemModalLabel" style="position:absolute;z-index:9999;">
+			    <div class="modal-dialog" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			                <h4 class="modal-title" id="gridSystemModalLabel">修改指标定性设置</h4>
+			            </div>
+			            <div class="modal-body">
+			                <div class="container-fluid">
+			                    <form class="form-horizontal" id="editForm">
+			                    </form>
+			                </div>
+			            </div>
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" >取 消</button>
+			                <button type="button" class="btn btn-xs btn-green" id="editIQulSet">保 存</button>
+			            </div>
+			        </div>
+	        <!-- /.modal-content -->
+		    	</div>
+		    </div>
+		    	<!--弹出删除用户警告窗口-->
+			<div class="modal fade" id="deleteIQulSet" role="dialog" aria-labelledby="gridSystemModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="2gridSystemModalLabel">提示</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container-fluid">
+								确定要删除该条指标定性设置？删除后不可恢复！
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="hidden" id="delId">
+							<button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn  btn-xs btn-danger" onclick="delIQulSetSubmit()">确 定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<script src="${ctxPath}/static/modular/system/cRat/iQulSet.js"></script>
+@}

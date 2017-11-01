@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.etl.mapper.EtlLogMainMapper">
+
+	<select id="getEtlLogByColDtOrResult"  resultType="com.aml.etl.entity.EtlLogMain">
+		select * from t_etl_log_main
+		where 1=1 
+			<if test="colDt != null and colDt != ''">
+				and col_dt= #{colDt} or col_dt= #{colDt}
+			</if>
+			<if test="result != null and result != ''">
+				and result = #{result}
+			</if>
+		order by id ASC
+	</select>
+	
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.propaganda.mapper.CmsNewsMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.propaganda.entity.CmsNewsEntity">
+		<id column="ID" property="id" />
+		<result column="CHANNEL_ID" property="channelId" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="IS_PUBLISH" property="isPublish" />
+		<result column="PUBLISHER" property="publisher" />
+		<result column="PUBLISH_TIME" property="publishTime" />
+		<result column="IS_NEW" property="isNew" />
+		<result column="VISIT_COUNT" property="visitCount" />
+		<result column="IS_SCROLL" property="isScroll" />
+		<result column="IS_DISPLAY" property="isDisplay" />
+		<result column="AUDITER" property="auditer" />
+		<result column="AUDIT_TIME" property="auditTime" />
+		<result column="KEYWORD" property="keyword" />
+		<result column="PUBLISH_TYPE" property="publishType" />
+		<result column="BEG_DATE" property="begDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="AUTHOR" property="author" />
+	</resultMap>
+	<sql id="BASE_COLUMN_LIST">
+		ID,CHANNEL_ID,TITLE,CONTENT,IS_PUBLISH,PUBLISHER,PUBLISH_TIME,
+		IS_NEW,VISIT_COUNT,IS_SCROLL,IS_DISPLAY,AUDITER,AUDIT_TIME,
+		KEYWORD,PUBLISH_TYPE,BEG_DATE,END_DATE,AUTHOR
+	</sql>
+	
+	<!-- 查询全部法律法规 -->
+	<select id="findAllCmsNews" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="BASE_COLUMN_LIST"/>
+		FROM CMS_NEWS WHERE 1=1 AND IS_DISPLAY='0'
+	</select>
+	
+	<!-- 根据栏目编号查询法律法规 -->
+	<select id="findAllCmsNewsByChannelId" resultMap="BaseResultMap">
+		SELECT
+			<include refid="BASE_COLUMN_LIST"/> 
+		FROM CMS_NEWS WHERE 1=1 
+		<if test="channelId != null and channelId != ''">
+			AND CHANNEL_ID = #{channelId}
+		</if>
+		<if test="id != 0 and id != null and id != ''">
+			AND ID = #{id}
+		</if>
+		 AND IS_DISPLAY='0'
+	</select>
+</mapper>

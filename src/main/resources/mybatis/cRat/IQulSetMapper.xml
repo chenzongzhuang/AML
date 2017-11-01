@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.cRat.mapper.RGMatMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="iQulSetResultMap" type="com.aml.cRat.entity.IQulSet">
+		<id column="RLCD" property="rlCd" />
+		<result column="RLTP" property="rlTp" />
+		<result column="RLNM" property="rlNm" />
+		<result column="RLEP" property="rlEp" />
+		<result column="REMARK" property="remark" />
+		<result column="ADJ_RANK" property="adjRank" />
+		<result column="TGT_RANK" property="tgtRank" />
+		<result column="RLSC" property="rlSc" />
+		<result column="PRIORITY" property="priority" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATOR" property="creator" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATOR" property="updator" />
+	</resultMap>
+    <!-- 通用查询结果列 -->
+	<sql id="iQulSet_Column_List">
+		@rownum:=@rownum+1 as id,
+		RLCD,
+		RLTP,
+		RLNM,
+		RLEP,
+		REMARK,
+		ADJ_RANK,
+		TGT_RANK,
+		RLSC,
+		PRIORITY,
+		STATUS,
+		CREATE_TIME,
+		CREATOR,
+		UPDATE_TIME,
+		UPDATOR
+	</sql>
+    <select id="findAllIQulSet" resultType="com.aml.cRat.entity.IQulSet">
+	      select 
+	     	<include refid="iQulSet_Column_List" />
+	      from T_CRA_MDL_RULE,(select @rownum:=0) t
+	       where 1=1 
+	    <if test="rlCd != null and rlCd != ''">
+    		and RLCD = #{rlCd}
+	    </if>
+    	  order by UPDATE_TIME desc 
+    </select>
+     <insert id="saveIQulSet" parameterType="com.aml.cRat.entity.IQulSet">
+	    INSERT INTO T_CRA_MDL_RULE (
+	    	RLCD,
+			RLNM,
+			RLTP,
+			STATUS,
+			ADJ_RANK,
+			TGT_RANK,
+			PRIORITY,
+			CREATE_TIME,
+			CREATOR,
+			UPDATE_TIME,
+			UPDATOR)
+		VALUES (
+			null,
+			#{rlNm},
+			#{rlTp},
+			#{status},
+			#{adjRank},
+			#{tgtRank},
+			#{priority},
+			#{createTime},
+			#{creator},
+			#{updateTime},
+			#{updator}
+		);
+    </insert>
+    <update id="updateIQulSet" parameterType="com.aml.cRat.entity.IQulSet">
+	    update T_CRA_MDL_RULE 
+	    SET
+	    	RLNM=#{rlNm},
+			RLTP=#{rlTp},
+			STATUS=#{status},
+			ADJ_RANK=#{adjRank},
+			TGT_RANK=#{tgtRank},
+			PRIORITY=#{priority},
+			UPDATE_TIME=#{updateTime},
+			UPDATOR=#{updator}
+		WHERE RLCD=#{rlCd}
+    </update>
+    <delete id="deleteIQulSet" parameterType="com.aml.cRat.entity.IQulSet">
+	    delete from T_CRA_MDL_RULE 
+		WHERE RLCD=#{rlCd}
+    </delete>
+</mapper>

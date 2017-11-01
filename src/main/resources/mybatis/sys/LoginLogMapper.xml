@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aml.sys.mapper.LoginLogMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.aml.sys.entity.LoginLog">
+		<id column="id" property="id" />
+		<result column="logname" property="logname" />
+		<result column="userid" property="userid" />
+		<result column="createtime" property="createtime" />
+		<result column="succeed" property="succeed" />
+		<result column="message" property="message" />
+		<result column="ip" property="ip" />
+	</resultMap>
+	
+	 <select id="findOpLog" resultType="com.aml.sys.entity.LoginLog">
+	      select 
+	     	*
+	      from login_log
+	      where 1=1 
+	    <if test="userid != null and userid != ''">
+	    	and userid = {userid}
+	    </if>
+	    <if test="ip != null and ip != ''">
+	    	and (ip like CONCAT('',#{ip},'%'))
+	    </if>
+	    <if test="startDate != null and startDate != ''">
+	    	and (createtime &gt;= #{startDate,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	    	and (createtime &lt;= #{endDate,jdbcType=TIMESTAMP})
+	    </if>
+	     order by id desc 
+    </select>
+    
+    <select id="findRunLog" resultType="com.aml.sys.entity.TaskLog">
+    	select d.id as id,d.batch_date batchDate,d.task_group taskGroup,run_state state,d.start_time startTime,d.end_time endTime
+		,g.task_desc taskDesc from t_task_log_main d 
+		LEFT JOIN t_task_group g on (d.task_group=g.task_group)
+		 where 1=1 
+		<if test="taskType != null and taskType != ''">
+	    	and d.task_group = #{taskType}
+	    </if>
+	    <if test="taskState != null and taskState != ''">
+	    	and d.run_state = #{taskState}
+	    </if>
+	    <if test="startDate != null and startDate != ''">
+	    	and (d.batch_date &gt;= #{startDate,jdbcType=TIMESTAMP})
+	    </if>
+	    <if test="endDate != null and endDate != ''">
+	    	and (d.batch_date &lt;= #{endDate,jdbcType=TIMESTAMP})
+	    </if>
+		order by d.id asc
+    </select>
+    
+   	<select id="findTaskMonitorLog" resultType="com.aml.sys.entity.TaskLog">
+    	select d.id as id,d.batch_date batchDate,d.task_id taskId,d.task_group taskGroup,d.state state,d.start_time startTime,d.end_time endTime,f.`name`,f.pre_id preId
+		,f.exe_runner exeRunner,g.task_desc taskDesc from t_task_log_detail d left JOIN  t_task_def f on (d.task_id=f.id)
+		LEFT JOIN t_task_group g on (f.group_name=g.task_group)
+		 where 1=1 
+		<if test="taskType != null and taskType != ''">
+	    	and d.task_group = #{taskType}
+	    </if>
+	    <if test="taskState != null and taskState != ''">
+	    	and d.state = #{taskState}
+	    </if>
+		order by d.id asc
+	</select>
+	
+	<select id="findTaskMonitorLogByBatchDateAndTaskGroup" resultType="com.aml.sys.entity.TaskLog">
+    	select d.id as id,d.batch_date batchDate,d.task_id taskId,d.task_group taskGroup,d.state state,d.start_time startTime,d.end_time endTime,f.`name`,f.pre_id preId
+		,f.exe_runner exeRunner,g.task_desc taskDesc from t_task_log_detail d left JOIN  t_task_def f on (d.task_id=f.id)
+		LEFT JOIN t_task_group g on (f.group_name=g.task_group)
+		 where 1=1 
+		<if test="batchDate != null and batchDate != ''">
+	    	and d.batch_date = #{batchDate}
+	    </if>
+	    <if test="taskGroup != null and taskGroup != ''">
+	    	and d.task_group = #{taskGroup}
+	    </if>
+		order by d.id asc
+	</select>
+</mapper>
